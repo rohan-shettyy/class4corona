@@ -1,2 +1,0 @@
-# class4corona
-Stuff
