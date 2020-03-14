@@ -12,12 +12,12 @@ navigator.mediaDevices.getUserMedia({
   video.onloadedmetadata = function(e) {
     let button = document.getElementById('playweb');
     button.onclick = function(e) {
-        if (button.innerText = "Play") {
+        if (button.innerText == "Enable Webcam") {
             video.play();
-            button.innerText = "Stop";
+            button.innerText = "Disable Webcam";
         } else {
             video.pause();
-            button.innerText = "Play";
+            button.innerText = "Enable Webcam";
         }
     }
     
