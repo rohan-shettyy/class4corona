@@ -1,7 +1,7 @@
 #Class4Corona
 ### What is it?
 
-A project developed by **Rohan Shetty **and **Wilson Wang**
+A project developed by **Rohan Shetty** and **Wilson Wang**
 To help and provide a tool for schools across Canada deliver students important education easily over the web
 
 ### How to use it?
