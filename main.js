@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
+var io = require('socket.io')(server);
 var fs = require('fs');
 var path = require('path');
 var cors = require('cors');
@@ -47,4 +48,24 @@ app.get('/video', function(req, res) {
 
   app.get('/host', function(req, res) {
 	  res.sendFile(__dirname + '/public/hosting.html');
-  })
+  });
+
+  app.get('/createclass', function(req, res) {
+	res.sendFile(__dirname + '/public/createClass.html');
+});
+
+app.get('/joinclass', function(req, res) {
+	res.sendFile(__dirname + '/public/joinClass.html');
+});
+
+  //Socket.io handlers
+  io.on('connection', function(socket){
+  	console.log('A user connected');
+	socket.on("disconnect", function() {
+		console.log("A user disconnected")
+	});
+
+	socket.on("packet", function(packet) {
+		//send packet to users in room
+	});
+  });
