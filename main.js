@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
+var io = require('socket.io').listen(server);
 var fs = require('fs');
 var path = require('path');
 var cors = require('cors');
@@ -11,7 +11,8 @@ app.use(cors());
 app.use(express.urlencoded( {extended: true} ))
 // Use correct file directory
 
-app.use(express.static(__dirname + '/public')).listen(3000, function() {
+app.use(express.static(__dirname + '/public'))
+server.listen(3000, function() {
 	console.log(`Listening`);
 });
 
@@ -58,6 +59,10 @@ app.get('/joinclass', function(req, res) {
 	res.sendFile(__dirname + '/public/joinClass.html');
 });
 
+app.get('/class', function(req, res) {
+	res.sendFile(__dirname + '/public/session.html');
+});
+var users = [];
 var rooms = [];
 function generateRoomID() {
 	var uid = ""
@@ -70,13 +75,16 @@ function generateRoomID() {
 		users: []
 		}
 	);
+	return uid
 }
 
   //Socket.io handlers
   io.on('connection', function(socket){
-  	console.log('A user connected');
+	  console.log('A user connected');
+	  users.push(socket.id);
 	socket.on("disconnect", function() {
 		console.log("A user disconnected")
+		users.splice(users.indexOf(socket.id), 1)
 	});
 
 	socket.on("createRoom", function() {
@@ -84,6 +92,6 @@ function generateRoomID() {
 	});
 
 	socket.on("packet", function(packet) {
-		//send packet to users in room
+		socket.broadcast.emit("packet", packet);
 	});
   });
