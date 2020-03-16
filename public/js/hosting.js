@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
     if (webcamButton.innerText == "Enable Webcam") {
       webcamButton.innerText = "Disable Webcam";
       document.getElementById("webcamPlayer").style.display = "block";
-      navigator.mediaDevices.getUserMedia({video: true, audio: true}).then((stream) => {
+      navigator.getUserMedia({video: true, audio: true}, (stream) => {
         document.getElementById("webcamPlayer").srcObject = stream;
         document.getElementById("webcamPlayer").play();
         mediaRecorder = new MediaRecorder(stream);
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
           mediaRecorder.stop();
           mediaRecorder.start();
         }, 5000);
-      }).catch((err) => {
+      }, (err) => {
         console.log('Failed to get local stream' ,err);
       });
     } else {

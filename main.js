@@ -1,8 +1,12 @@
 var express = require('express');
 var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io').listen(server);
 var fs = require('fs');
+var server = require('https').createServer(
+	{key: fs.readFileSync('./key.pem'),
+	cert: fs.readFileSync('./cert.pem'),
+	passphrase: 'bruh'
+	}, app).listen(3000);
+var io = require('socket.io').listen(server);
 var path = require('path');
 var cors = require('cors');
 
@@ -12,9 +16,6 @@ app.use(express.urlencoded( {extended: true} ))
 // Use correct file directory
 
 app.use(express.static(__dirname + '/public'))
-server.listen(3000, function() {
-	console.log(`Listening`);
-});
 
 app.get('/video', function(req, res) {
 	const path = 'assets/sample.mp4'
@@ -62,6 +63,7 @@ app.get('/joinclass', function(req, res) {
 app.get('/class', function(req, res) {
 	res.sendFile(__dirname + '/public/session.html');
 });
+
 var users = [];
 var rooms = [];
 function generateRoomID() {
