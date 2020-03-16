@@ -8,10 +8,6 @@ var path = require('path');
 var cors = require('cors');
 var io = SocketIO(server)
 
-
-var users = {};
-var name = '';
-
 app.use(cors());
 app.use(express.urlencoded( {extended: true} ))
 // Use correct file directory
@@ -85,7 +81,7 @@ app.post('/joinclass',function(req,res){
 	res.end("yes");
 });
 
-
+var users = [];
 var rooms = [];
 function generateRoomID() {
 	var uid = ""
