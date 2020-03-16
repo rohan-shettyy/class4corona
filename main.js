@@ -59,6 +59,17 @@ app.get('/video', function(req, res) {
 	res.sendFile(__dirname + '/public/createClass.html');
 });
 
+app.post('/createclass',function(req,res){
+	var user_name=req.body.name;
+	var school=req.body.school;
+	var s_class = req.body.s_clas;
+	var description = req.body.desc;
+	var reqcode = req.body.reqcode
+
+	console.log("User name = "+user_name+", school is "+school);
+	res.end("yes");
+  });
+
 app.get('/joinclass', function(req, res) {
 	res.sendFile(__dirname + '/public/joinClass.html');
 });
