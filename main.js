@@ -1,11 +1,7 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
-var server = require('https').createServer(
-	{key: fs.readFileSync('./key.pem'),
-	cert: fs.readFileSync('./cert.pem'),
-	passphrase: 'bruh'
-	}, app).listen(3000);
+var server = require('http').createServer(app).listen(3000);
 var io = require('socket.io').listen(server);
 var path = require('path');
 var cors = require('cors');
