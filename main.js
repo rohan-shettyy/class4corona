@@ -68,11 +68,22 @@ app.post('/createclass',function(req,res){
 
 	console.log("User name = "+user_name+", school is "+school);
 	res.end("yes");
-  });
+});
 
 app.get('/joinclass', function(req, res) {
 	res.sendFile(__dirname + '/public/joinClass.html');
 });
+
+app.post('/joinclass',function(req,res){
+	var user_name = req.body.name;
+	var school = req.body.school;
+	var s_class = req.body.s_clas;
+	var code = req.body.code;
+
+	console.log("User name = "+user_name+", school is "+school);
+	res.end("yes");
+});
+
 
 var rooms = [];
 
