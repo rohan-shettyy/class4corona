@@ -10,7 +10,7 @@ To help and provide a tool for schools across Canada deliver students important 
 It's not quite ready to be used as of right now. However, it is being constantly developed and will be working *hopefully* by March 21 2020. Stay Tuned.
 ## Credits
 
-####Lead developeres
+#### Lead developers
 
 **Wilson Wang**
 
@@ -20,5 +20,5 @@ It's not quite ready to be used as of right now. However, it is being constantly
 
 **Rohan Shetty**
 
-`Personal-Site` :
+`Personal-Site` : <https://rohanshetty.me>
 `GitHub` : <https://github.com/Cyndakwil>
