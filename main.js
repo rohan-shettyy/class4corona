@@ -1,12 +1,10 @@
 var express = require('express');
-var SocketIO = require("socket.io")
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io').listen(server);
 var fs = require('fs');
 var path = require('path');
 var cors = require('cors');
-var io = SocketIO(server)
 
 app.use(cors());
 app.use(express.urlencoded( {extended: true} ))
@@ -79,6 +77,10 @@ app.post('/joinclass',function(req,res){
 
 	console.log("User name = "+user_name+", school is "+school);
 	res.end("yes");
+});
+
+app.get('/class', function(req, res) {
+	res.sendFile(__dirname + '/public/session.html');
 });
 
 var users = [];
