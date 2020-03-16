@@ -59,12 +59,28 @@ app.get('/joinclass', function(req, res) {
 });
 
 var rooms = [];
+function generateRoomID() {
+	var uid = ""
+	for (let i=0; i < 6; i++) {
+		uid = uid + Math.floor(Math.random() * 9).toString();
+	}
+	rooms.push(
+		{
+		id: uid,
+		users: []
+		}
+	);
+}
 
   //Socket.io handlers
   io.on('connection', function(socket){
   	console.log('A user connected');
 	socket.on("disconnect", function() {
 		console.log("A user disconnected")
+	});
+
+	socket.on("createRoom", function() {
+		socket.emit("roomID", generateRoomID());
 	});
 
 	socket.on("packet", function(packet) {
