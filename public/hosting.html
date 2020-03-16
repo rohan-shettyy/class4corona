@@ -4,14 +4,15 @@
         <link rel="stylesheet" href="css/hosting.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+        <script src="https://webrtc.github.io/adapter/adapter-4.2.2.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
         <script src="js/hosting.js"></script>
-        <!-- Documentation available on https://recordrtc.org/ -->
+        <!-- Documentation available on https://recordrtc.org/ and https://peerjs.com/ -->
     </head>
     <body>
-        <button id="playweb">Enable Webcam</button>
-        <video autoplay id="webcamPlayer">
-
+        <button id="camButton">Enable Webcam</button>
+        <video autoplay id="webcamPlayer" controlsList="nodownload" oncontextmenu="return false;" srcObject="none">
         </video>
+        <div id="remotes" class="row"></div>
     </body>
 </html>

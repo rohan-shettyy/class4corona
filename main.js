@@ -58,6 +58,8 @@ app.get('/joinclass', function(req, res) {
 	res.sendFile(__dirname + '/public/joinClass.html');
 });
 
+var rooms = [];
+
   //Socket.io handlers
   io.on('connection', function(socket){
   	console.log('A user connected');

@@ -1,27 +1,57 @@
-// Javascript
-navigator.mediaDevices.getUserMedia({
-    video: {
-      width:     1280,
-      height:    720,
-      frameRate: 24
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+let mediaRecorder;
+let recordedChunks;
+
+document.addEventListener("DOMContentLoaded", function(e) {
+
+  let webcamButton = document.getElementById('camButton');
+  webcamButton.addEventListener("click", function(e) {
+    if (webcamButton.innerText == "Enable Webcam") {
+      webcamButton.innerText = "Disable Webcam";
+      document.getElementById("webcamPlayer").style.display = "block";
+      navigator.mediaDevices.getUserMedia({video: true, audio: true}).then((stream) => {
+        document.getElementById("webcamPlayer").srcObject = stream;
+        document.getElementById("webcamPlayer").play();
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = handleDataAvailable;
+        mediaRecorder.start();
+        setInterval(function(){
+          mediaRecorder.stop();
+          mediaRecorder.start();
+        }, 5000);
+      }).catch((err) => {
+        console.log('Failed to get local stream' ,err);
+      });
+    } else {
+      webcamButton.innerText = "Enable Webcam";
+      document.getElementById("webcamPlayer").srcObject.getTracks().forEach(track => {
+        track.stop();
+      });
+    }
+  });
+
+  function handleDataAvailable() {
+    console.log("data-available");
+    if (event.data.size > 0) {
+      recordedChunks = event.data;
+      console.log(recordedChunks);
+      download();
     }
   }
-).then(function(stream) {
-  let video = document.getElementById('webcamPlayer');
-  video.srcObject = stream;
-  video.onloadedmetadata = function(e) {
-    let button = document.getElementById('playweb');
-    button.onclick = function(e) {
-        if (button.innerText == "Enable Webcam") {
-            video.play();
-            button.innerText = "Disable Webcam";
-        } else {
-            video.pause();
-            button.innerText = "Enable Webcam";
-        }
-    }
+
+  function download() {
+    var blob = new Blob([recordedChunks], {
+      type: "video/webm"
+    });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style.display = "none";
+    a.href = url;
+    a.download = "test.webm";
     
-  };
-}).catch(function(err) {
-  // deal with an error (such as no webcam)
+  }
+
+  // Begin socket host connection
+  var socket = io();
 });
