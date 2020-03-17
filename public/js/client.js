@@ -34,7 +34,7 @@ function gotMessageFromServer(message) {
 
     // Ignore messages from ourself
     if (signal.uuid == uuid) return;
-
+    if (signal.sender == 'client') return;
     if (signal.sdp) {
         peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(function() {
             // Only create answers in response to offers
@@ -57,7 +57,7 @@ function createdDescription(description) {
     console.log('got description');
 
     peerConnection.setLocalDescription(description).then(function() {
-        serverConnection.send(JSON.stringify({ 'sdp': peerConnection.localDescription, 'uuid': uuid }));
+        serverConnection.send(JSON.stringify({ 'sdp': peerConnection.localDescription, 'uuid': uuid, sender: 'client'}));
     }).catch(errorHandler);
 }
 
