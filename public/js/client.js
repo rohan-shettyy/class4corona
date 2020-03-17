@@ -17,9 +17,6 @@ function pageReady() {
 
     serverConnection = new WebSocket('wss://' + window.location.hostname + ':443');
     serverConnection.onmessage = gotMessageFromServer;
-}
-
-function start() {
     peerConnection = new RTCPeerConnection(peerConnectionConfig);
     peerConnection.onicecandidate = gotIceCandidate;
     peerConnection.ontrack = gotRemoteStream;
