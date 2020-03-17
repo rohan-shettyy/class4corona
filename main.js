@@ -5,7 +5,7 @@ var server = require('https').createServer({
         key: fs.readFileSync("private.key.pem"),
         cert: fs.readFileSync("domain.cert.pem")
     },
-    app).listen(80);
+    app).listen(443);
 const WebSocket = require('ws');
 const WebSocketServer = WebSocket.Server;
 var path = require('path');
