@@ -6,7 +6,7 @@ var server = require('https').createServer(
 		key: fs.readFileSync("private.key.pem"),
 		cert: fs.readFileSync("domain.cert.pem")
 	},
-	app).listen(8080);
+	app).listen(80);
 var io = require('socket.io').listen(server);
 var path = require('path');
 var cors = require('cors');
