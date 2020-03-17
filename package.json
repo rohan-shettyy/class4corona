@@ -1,0 +1,32 @@
+{
+  "name": "class4corona",
+  "version": "1.0.0",
+  "description": "E-learning for the Coronavirus outbreak",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cyndakwil/class4corona.git"
+  },
+  "keywords": [
+    "Corona",
+    "joe"
+  ],
+  "author": "Rohan Shetty, Wilson Wang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Cyndakwil/class4corona/issues"
+  },
+  "homepage": "https://github.com/Cyndakwil/class4corona#readme",
+  "dependencies": {
+    "app": "^0.1.0",
+    "bad-words": "^3.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "socket.io": "^2.3.0"
+  }
+}

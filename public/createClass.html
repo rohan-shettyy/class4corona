@@ -1,0 +1,57 @@
+<!doctype HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="css/home.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+        <script>
+          $(document).ready(function(){
+            var name,school, s_class, description, reqcode;
+            $("#submit").click(function(){
+              name=$("#name").val();
+              school=$("#school").val();
+              s_class=$("#class").val();
+              desc=$("#Description").val();
+              reqcode=$("#RequireCode").val();
+              $.post("/createclass",{name: name,school: school, s_class: s_class, description: desc, reqcode: reqcode}, function(data){
+                if(data==='done')
+                  {
+                    alert("class created");
+                  }
+              });
+            });
+          });
+        </script>
+    </head>
+    <body>
+        <div class="TitleDiv container w-50">
+            <h2 class="HomeHeaderSmall">Create a Class</h2>
+        </div>
+        <div class="InputDiv container">
+            <form action="">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="name" class="form-control" id="name" placeholder="Johnny Mac">
+                </div>
+                <div class="form-group">
+                    <label for="school">School</label>
+                    <input type="name" class="form-control" id="school" placeholder="Sir John A Macdonald S.S.">
+                </div>
+                <div class="form-group">
+                    <label for="class">Class</label>
+                    <input type="name" class="form-control" id="class" placeholder="MCV4UI : Grade 12 Calculus and Vectors">
+                </div>
+                <div class="form-group">
+                    <label for="Description">Description of Lesson:</label>
+                    <textarea class="form-control" id="Description" rows="3"></textarea>
+                  </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="RequireCode">
+                    <label class="form-check-label" for="RequireCode">Require Code To Join</label>
+                </div>
+                <input type="submit" id="submit" value="Create Class">
+              </form>
+        </div>
+    </body>
+</html>

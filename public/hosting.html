@@ -1,0 +1,17 @@
+<!doctype HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="css/hosting.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script defer src="js/hosting.js"></script>
+        <!-- Documentation available on https://recordrtc.org/ and https://peerjs.com/ -->
+    </head>
+    <body>
+        <button id="camButton">Enable Webcam</button>
+        <video autoplay id="webcamPlayer" controlsList="nodownload" oncontextmenu="return false;" srcObject="none">
+        </video>
+        <div id="remotes" class="row"></div>
+    </body>
+</html>
