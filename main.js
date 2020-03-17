@@ -11,6 +11,14 @@ const WebSocketServer = WebSocket.Server;
 var path = require('path');
 var cors = require('cors');
 
+var http = express.createServer();
+
+http.get('*', function(req, res) {
+    res.redirect('https://' + req.headers.host + req.url);
+})
+
+http.listen(80);
+
 app.use(cors());
 app.use(express.urlencoded({ extended: true }))
 
