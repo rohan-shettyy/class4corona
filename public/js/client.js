@@ -1,3 +1,5 @@
+var localVideo;
+var localStream;
 var remoteVideo;
 var peerConnection;
 var uuid;
@@ -17,6 +19,9 @@ function pageReady() {
 
     serverConnection = new WebSocket('wss://' + window.location.hostname + ':443');
     serverConnection.onmessage = gotMessageFromServer;
+}
+
+function start(isCaller) {
     peerConnection = new RTCPeerConnection(peerConnectionConfig);
     peerConnection.onicecandidate = gotIceCandidate;
     peerConnection.ontrack = gotRemoteStream;

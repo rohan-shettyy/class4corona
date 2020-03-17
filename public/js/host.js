@@ -16,9 +16,11 @@ function pageReady() {
     uuid = createUUID();
 
     localVideo = document.getElementById('localVideo');
-    remoteVideo = document.getElementById('remoteVideo');
 
     serverConnection = new WebSocket('wss://' + window.location.hostname + ':443');
+
+    console.log("Opened WS on :443")
+
     serverConnection.onmessage = gotMessageFromServer;
 
     var constraints = {
@@ -41,12 +43,8 @@ function getUserMediaSuccess(stream) {
 function start(isCaller) {
     peerConnection = new RTCPeerConnection(peerConnectionConfig);
     peerConnection.onicecandidate = gotIceCandidate;
-    peerConnection.ontrack = gotRemoteStream;
     peerConnection.addStream(localStream);
-
-    if (isCaller) {
-        peerConnection.createOffer().then(createdDescription).catch(errorHandler);
-    }
+    peerConnection.createOffer().then(createdDescription).catch(errorHandler);
 }
 
 function gotMessageFromServer(message) {
@@ -59,7 +57,6 @@ function gotMessageFromServer(message) {
 
     if (signal.sdp) {
         peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(function() {
-            // Only create answers in response to offers
             if (signal.sdp.type == 'offer') {
                 peerConnection.createAnswer().then(createdDescription).catch(errorHandler);
             }
@@ -81,11 +78,6 @@ function createdDescription(description) {
     peerConnection.setLocalDescription(description).then(function() {
         serverConnection.send(JSON.stringify({ 'sdp': peerConnection.localDescription, 'uuid': uuid }));
     }).catch(errorHandler);
-}
-
-function gotRemoteStream(event) {
-    console.log('got remote stream');
-    remoteVideo.srcObject = event.streams[0];
 }
 
 function errorHandler(error) {
