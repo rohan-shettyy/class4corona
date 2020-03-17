@@ -3,11 +3,16 @@
 
 <head>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-    <script src="js/webrtc.js"></script>
+    <script src="js/client.js"></script>
 </head>
 
 <body>
+    <video id="localVideo" autoplay muted style="width:40%;"></video>
     <video id="remoteVideo" autoplay style="width:40%;"></video>
+
+    <br />
+
+    <input type="button" id="start" onclick="start(true)" value="Start Video"></input>
 
     <script type="text/javascript">
         pageReady();
