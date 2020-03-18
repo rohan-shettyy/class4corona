@@ -45,7 +45,9 @@ function start(isCaller) {
     console.log("new RTCconnection")
     peerConnection.onicecandidate = gotIceCandidate;
     peerConnection.ontrack = gotRemoteStream;
-    peerConnection.addStream(localStream);
+    for (const track of localStream.getTracks()) {
+        peerConnection.addTrack(track, localStream);
+      }
     peerConnection.createOffer().then((desc) => {
         createdDescription(desc);
     }).catch(errorHandler);
@@ -87,7 +89,9 @@ function createdDescription(description) {
 
 function gotRemoteStream(event) {
     console.log('got remote stream');
+    console.log(event)
     remoteVideo.srcObject = event.streams[0];
+    remoteVideo.play();
 }
 
 function errorHandler(error) {

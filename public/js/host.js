@@ -48,7 +48,9 @@ function getUserMediaSuccess(stream) {
 function start(uid) {
     peerConnections[uid] = new RTCPeerConnection(peerConnectionConfig);
     peerConnections[uid].onicecandidate = gotIceCandidate;
-    peerConnections[uid].addStream(localStream);
+    for (const track of localStream.getTracks()) {
+        peerConnections[uid].addTrack(track, localStream);
+      }
 }
 
 function gotMessageFromServer(message) {
