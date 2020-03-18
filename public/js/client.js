@@ -23,7 +23,9 @@ function pageReady() {
 }
 
 function start(isCaller) {
+    console.log("pressed Start")
     peerConnection = new RTCPeerConnection(peerConnectionConfig);
+    console.log("new RTCconnection")
     peerConnection.onicecandidate = gotIceCandidate;
     peerConnection.ontrack = gotRemoteStream;
     peerConnection.createOffer().then((desc) => {
