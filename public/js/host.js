@@ -4,6 +4,7 @@ var remoteVideo;
 var peerConnections = {};
 var uuid;
 var serverConnection;
+var potentialCandidates = [];
 
 var peerConnectionConfig = {
     'iceServers': [
@@ -48,13 +49,9 @@ function start(uid) {
     peerConnections[uid] = new RTCPeerConnection(peerConnectionConfig);
     peerConnections[uid].onicecandidate = gotIceCandidate;
     peerConnections[uid].addStream(localStream);
-    peerConnections[uid].createOffer().then( (desc) => {
-        createdDescription(desc, uid);
-    }).catch(errorHandler);
 }
 
 function gotMessageFromServer(message) {
-    
 
     var signal = JSON.parse(message.data);
 
@@ -62,6 +59,7 @@ function gotMessageFromServer(message) {
 
     // Ignore messages from ourself
     if (signal.uuid == uuid) return;
+    if (signal.sender == 'host') return;
     console.log(signal)
     if (signal.sdp) {
 
@@ -71,21 +69,27 @@ function gotMessageFromServer(message) {
                 peerConnections[signal.uuid].createAnswer().then( (desc) => {
                     createdDescription(desc, signal.uuid)
                 }).catch(errorHandler);
+                potentialCandidates.forEach( (candidate) => {
+                    peerConnections[candidate.uuid].addIceCandidate(new RTCIceCandidate(candidate.ice)).catch(errorHandler);
+                });
             }
         }).catch(errorHandler);
     } else if (signal.ice) {
-        peerConnections[signal.uuid].addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
+        if(!peerConnections[signal.uuid] || !peerConnections[signal.uuid].remoteDescription){
+            potentialCandidates.push({'ice': signal.ice, 'uuid': signal.uuid});
+        } else if (peerConnections[signal.uuid].remoteDescription) {
+            peerConnections[signal.uuid].addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
+        }
     }
 }
 
 function gotIceCandidate(event) {
     if (event.candidate != null) {
-        serverConnection.send(JSON.stringify({ 'ice': event.candidate, 'uuid': uuid }));
+        serverConnection.send(JSON.stringify({ 'ice': event.candidate, 'uuid': uuid, 'sender': 'host' }));
     }
 }
 
 function createdDescription(description, uid) {
-    console.log(uid);
 
     peerConnections[uid].setLocalDescription(description).then(function() {
         serverConnection.send(JSON.stringify({ 'sdp': peerConnections[uid].localDescription, 'uuid': uuid, sender: 'host'}));

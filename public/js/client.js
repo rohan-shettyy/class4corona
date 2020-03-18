@@ -4,6 +4,7 @@ var remoteVideo;
 var peerConnection;
 var uuid;
 var serverConnection;
+var potentialCandidates = [];
 
 var peerConnectionConfig = {
     'iceServers': [
@@ -25,6 +26,9 @@ function start(isCaller) {
     peerConnection = new RTCPeerConnection(peerConnectionConfig);
     peerConnection.onicecandidate = gotIceCandidate;
     peerConnection.ontrack = gotRemoteStream;
+    peerConnection.createOffer().then( (desc) => {
+        createdDescription(desc);
+    }).catch(errorHandler);
 }
 
 function gotMessageFromServer(message) {
@@ -35,21 +39,29 @@ function gotMessageFromServer(message) {
     // Ignore messages from ourself
     if (signal.uuid == uuid) return;
     if (signal.sender == 'client') return;
+    console.log(signal.sdp.type)
     if (signal.sdp) {
         peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(function() {
             // Only create answers in response to offers
             if (signal.sdp.type == 'offer') {
                 peerConnection.createAnswer().then(createdDescription).catch(errorHandler);
+                potentialCandidates.forEach( (candidate) => {
+                    peerConnection.addIceCandidate(new RTCIceCandidate(candidate.ice)).catch(errorHandler);
+                });
             }
         }).catch(errorHandler);
     } else if (signal.ice) {
-        peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
+        if(!peerConnection || !peerConnection.remoteDescription){
+            potentialCandidates.push({'ice': signal.ice, 'uuid': signal.uuid});
+        } else if (peerConnection.remoteDescription){
+            peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
+        }
     }
 }
 
 function gotIceCandidate(event) {
     if (event.candidate != null) {
-        serverConnection.send(JSON.stringify({ 'ice': event.candidate, 'uuid': uuid }));
+        serverConnection.send(JSON.stringify({ 'ice': event.candidate, 'uuid': uuid, 'sender': 'client' }));
     }
 }
 
@@ -57,7 +69,7 @@ function createdDescription(description) {
     console.log('got description');
 
     peerConnection.setLocalDescription(description).then(function() {
-        serverConnection.send(JSON.stringify({ 'sdp': peerConnection.localDescription, 'uuid': uuid, sender: 'client'}));
+        serverConnection.send(JSON.stringify({ 'sdp': peerConnection.localDescription, 'uuid': uuid, 'sender': 'client'}));
     }).catch(errorHandler);
 }
 
