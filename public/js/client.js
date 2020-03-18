@@ -1,7 +1,10 @@
 var localVideo;
 var localStream;
 var remoteStream = new MediaStream();
+var displayStream = new MediaStream();
 var remoteVideo;
+var remoteDisplay;
+var camTransceiver, screenTransceiver;
 var peerConnection;
 var uuid;
 var serverConnection;
@@ -22,6 +25,10 @@ function pageReady() {
     remoteVideo = document.getElementById('remoteVideo');
     remoteVideo.srcObject = remoteStream;
     remoteVideo.play();
+
+    remoteDisplay = document.getElementById('remoteDisplay');
+    remoteDisplay.srcObject = displayStream;
+    remoteDisplay.play();
 
     serverConnection = new WebSocket('wss://' + window.location.hostname + ':443');
     serverConnection.onmessage = gotMessageFromServer;
@@ -49,7 +56,8 @@ function start(isCaller) {
     peerConnection.onicecandidate = gotIceCandidate;
     peerConnection.ontrack = gotRemoteStream;
     peerConnection.addTrack(localStream.getTracks()[0]);
-    peerConnection.addTransceiver("video");
+    camTransceiver = peerConnection.addTransceiver("video");
+    screenTransceiver = peerConnection.addTransceiver("video");
     peerConnection.createOffer().then((desc) => {
         createdDescription(desc);
     }).catch(errorHandler);
@@ -89,9 +97,13 @@ function createdDescription(description) {
 }
 
 function gotRemoteStream(e) {
-
+    console.log(e)
     if (e.streams && e.streams[0]) {
-        remoteVideo.srcObject = e.streams[0];
+        if (e.transceiver.mid == screenTransceiver.mid) {
+            displayStream.addTrack(e.track);
+        } else {
+            remoteVideo.srcObject = e.streams[0];
+        }
       } else {
         if (!inboundStream) {
           inboundStream = new MediaStream();
