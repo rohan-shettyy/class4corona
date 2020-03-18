@@ -45,9 +45,7 @@ function getUserMediaSuccess(stream) {
 }
 
 function start(isCaller) {
-    console.log("pressed Start")
     peerConnection = new RTCPeerConnection(peerConnectionConfig);
-    console.log("new RTCconnection")
     peerConnection.onicecandidate = gotIceCandidate;
     peerConnection.ontrack = gotRemoteStream;
     peerConnection.addTrack(localStream.getTracks()[0]);
@@ -84,7 +82,6 @@ function gotIceCandidate(event) {
 }
 
 function createdDescription(description) {
-    console.log('got description');
 
     peerConnection.setLocalDescription(description).then(function() {
         serverConnection.send(JSON.stringify({ 'sdp': peerConnection.localDescription, 'uuid': uuid, 'sender': 'client' }));
@@ -92,7 +89,7 @@ function createdDescription(description) {
 }
 
 function gotRemoteStream(e) {
-    console.log('got remote stream');
+
     if (e.streams && e.streams[0]) {
         remoteVideo.srcObject = e.streams[0];
       } else {

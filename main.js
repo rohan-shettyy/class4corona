@@ -10,12 +10,12 @@ const WebSocket = require('ws');
 const WebSocketServer = WebSocket.Server;
 var path = require('path');
 var cors = require('cors');
-// var http = require('http');
+var http = require('http');
 
-// http.createServer(function(req, res) {
-//     res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-//     res.end();
-// }).listen(80);
+http.createServer(function(req, res) {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+}).listen(80);
 
 app.get('/insecure', function(req, res) {
     res.send('Dangerous!');
