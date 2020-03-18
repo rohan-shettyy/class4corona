@@ -69,17 +69,10 @@ function gotMessageFromServer(message) {
                 peerConnections[signal.uuid].createAnswer().then( (desc) => {
                     createdDescription(desc, signal.uuid)
                 }).catch(errorHandler);
-                potentialCandidates.forEach( (candidate) => {
-                    peerConnections[candidate.uuid].addIceCandidate(new RTCIceCandidate(candidate.ice)).catch(errorHandler);
-                });
             }
         }).catch(errorHandler);
     } else if (signal.ice) {
-        if(!peerConnections[signal.uuid] || !peerConnections[signal.uuid].remoteDescription){
-            potentialCandidates.push({'ice': signal.ice, 'uuid': signal.uuid});
-        } else if (peerConnections[signal.uuid].remoteDescription) {
             peerConnections[signal.uuid].addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
-        }
     }
 }
 
