@@ -11,6 +11,15 @@ const WebSocketServer = WebSocket.Server;
 var path = require('path');
 var cors = require('cors');
 
+var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
+
+// Don't redirect if the hostname is `localhost:port` or the route is `/insecure`
+app.use(redirectToHTTPS([/\/insecure/], 301));
+
+app.get('/insecure', function(req, res) {
+    res.send('Dangerous!');
+});
+
 app.use(cors());
 app.use(express.urlencoded({ extended: true }))
 
