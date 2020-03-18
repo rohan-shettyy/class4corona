@@ -39,28 +39,26 @@ function gotMessageFromServer(message) {
     // Ignore messages from ourself
     if (signal.uuid == uuid) return;
     if (signal.sender == 'client') return;
-    console.log(signal.sdp.type)
+    console.log(signal.ice)
     if (signal.sdp) {
         peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(function() {
             // Only create answers in response to offers
             if (signal.sdp.type == 'offer') {
                 peerConnection.createAnswer().then(createdDescription).catch(errorHandler);
-                potentialCandidates.forEach( (candidate) => {
-                    peerConnection.addIceCandidate(new RTCIceCandidate(candidate.ice)).catch(errorHandler);
-                });
+                
             }
+            potentialCandidates.forEach( (candidate) => {
+                peerConnection.addIceCandidate(new RTCIceCandidate(candidate.ice)).catch(errorHandler);
+            });
         }).catch(errorHandler);
     } else if (signal.ice) {
-        if(!peerConnection || !peerConnection.remoteDescription){
-            potentialCandidates.push({'ice': signal.ice, 'uuid': signal.uuid});
-        } else if (peerConnection.remoteDescription){
             peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
-        }
     }
 }
 
 function gotIceCandidate(event) {
-    if (event.candidate != null) {
+    console.log(event)
+    if (event.candidate) {
         serverConnection.send(JSON.stringify({ 'ice': event.candidate, 'uuid': uuid, 'sender': 'client' }));
     }
 }

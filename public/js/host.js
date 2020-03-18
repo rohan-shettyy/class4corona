@@ -69,28 +69,25 @@ function gotMessageFromServer(message) {
                 peerConnections[signal.uuid].createAnswer().then( (desc) => {
                     createdDescription(desc, signal.uuid)
                 }).catch(errorHandler);
-                potentialCandidates.forEach( (candidate) => {
-                    peerConnections[candidate.uuid].addIceCandidate(new RTCIceCandidate(candidate.ice)).catch(errorHandler);
-                });
+                
             }
+            potentialCandidates.forEach( (candidate) => {
+                peerConnections[signal.uuid].addIceCandidate(new RTCIceCandidate(candidate.ice)).catch(errorHandler);
+            });
         }).catch(errorHandler);
     } else if (signal.ice) {
-        if(!peerConnections[signal.uuid] || !peerConnections[signal.uuid].remoteDescription){
-            potentialCandidates.push({'ice': signal.ice, 'uuid': signal.uuid});
-        } else if (peerConnections[signal.uuid].remoteDescription) {
             peerConnections[signal.uuid].addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
-        }
     }
 }
 
 function gotIceCandidate(event) {
-    if (event.candidate != null) {
+    if (event.candidate) {
         serverConnection.send(JSON.stringify({ 'ice': event.candidate, 'uuid': uuid, 'sender': 'host' }));
     }
 }
 
 function createdDescription(description, uid) {
-
+    console.log("description")
     peerConnections[uid].setLocalDescription(description).then(function() {
         serverConnection.send(JSON.stringify({ 'sdp': peerConnections[uid].localDescription, 'uuid': uuid, sender: 'host'}));
     }).catch(errorHandler);

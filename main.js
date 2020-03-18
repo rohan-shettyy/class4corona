@@ -69,7 +69,8 @@ console.log("Started Websocket Server")
 
 wss.on('connection', function(ws) {
     ws.on('message', function(message) {
-        // Broadcast any received message to all clients
+		// Broadcast any received message to all clients
+		console.log(message)
         wss.broadcast(message);
     });
 });
