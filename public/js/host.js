@@ -49,6 +49,7 @@ function start(uid) {
     peerConnections[uid] = new RTCPeerConnection(peerConnectionConfig);
     peerConnections[uid].onicecandidate = gotIceCandidate;
     for (const track of localStream.getTracks()) {
+        console.log(track);
         peerConnections[uid].addTrack(track, localStream);
       }
 }

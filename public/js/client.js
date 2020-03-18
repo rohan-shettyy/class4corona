@@ -1,5 +1,6 @@
 var localVideo;
 var localStream;
+var remoteStream = new MediaStream();
 var remoteVideo;
 var peerConnection;
 var uuid;
@@ -17,6 +18,8 @@ function pageReady() {
     uuid = createUUID();
 
     remoteVideo = document.getElementById('remoteVideo');
+    remoteVideo.srcObject = remoteStream;
+    remoteVideo.play();
 
     serverConnection = new WebSocket('wss://' + window.location.hostname + ':443');
     serverConnection.onmessage = gotMessageFromServer;
@@ -90,7 +93,7 @@ function createdDescription(description) {
 function gotRemoteStream(event) {
     console.log('got remote stream');
     console.log(event)
-    remoteVideo.srcObject = event.streams[0];
+    remoteStream.addTrack(event.track, remoteStream);
     remoteVideo.play();
 }
 
