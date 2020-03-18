@@ -1,7 +1,7 @@
 var localVideo;
 var localStream;
 var remoteVideo;
-var peerConnection;
+var peerConnections = {};
 var uuid;
 var serverConnection;
 
@@ -12,7 +12,7 @@ var peerConnectionConfig = {
     ]
 };
 
-function pageReady() {
+document.addEventListener("DOMContentLoaded", () => {
     uuid = createUUID();
 
     localVideo = document.getElementById('localVideo');
@@ -33,36 +33,48 @@ function pageReady() {
     } else {
         alert('Your browser does not support getUserMedia API');
     }
-}
+
+    document.getElementById("start").addEventListener("click", (e) => {
+        start(uuid)
+    });
+});
 
 function getUserMediaSuccess(stream) {
     localStream = stream;
     localVideo.srcObject = stream;
 }
 
-function start(isCaller) {
-    peerConnection = new RTCPeerConnection(peerConnectionConfig);
-    peerConnection.onicecandidate = gotIceCandidate;
-    peerConnection.addStream(localStream);
-    peerConnection.createOffer().then(createdDescription).catch(errorHandler);
+function start(uid) {
+    peerConnections[uid] = new RTCPeerConnection(peerConnectionConfig);
+    peerConnections[uid].onicecandidate = gotIceCandidate;
+    peerConnections[uid].addStream(localStream);
+    peerConnections[uid].createOffer().then( (desc) => {
+        createdDescription(desc, uid);
+    }).catch(errorHandler);
 }
 
 function gotMessageFromServer(message) {
-    if (!peerConnection) start(false);
+    
 
     var signal = JSON.parse(message.data);
 
+    if (!peerConnections[signal.uuid]) start(signal.uuid);
+
     // Ignore messages from ourself
     if (signal.uuid == uuid) return;
-
+    console.log(signal)
     if (signal.sdp) {
-        peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(function() {
+
+        peerConnections[signal.uuid].setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(function() {
             if (signal.sdp.type == 'offer') {
-                peerConnection.createAnswer().then(createdDescription).catch(errorHandler);
+                
+                peerConnections[signal.uuid].createAnswer().then( (desc) => {
+                    createdDescription(desc, signal.uuid)
+                }).catch(errorHandler);
             }
         }).catch(errorHandler);
     } else if (signal.ice) {
-        peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
+        peerConnections[signal.uuid].addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
     }
 }
 
@@ -72,11 +84,11 @@ function gotIceCandidate(event) {
     }
 }
 
-function createdDescription(description) {
-    console.log('got description');
+function createdDescription(description, uid) {
+    console.log(uid);
 
-    peerConnection.setLocalDescription(description).then(function() {
-        serverConnection.send(JSON.stringify({ 'sdp': peerConnection.localDescription, 'uuid': uuid }));
+    peerConnections[uid].setLocalDescription(description).then(function() {
+        serverConnection.send(JSON.stringify({ 'sdp': peerConnections[uid].localDescription, 'uuid': uuid, sender: 'host'}));
     }).catch(errorHandler);
 }
 
