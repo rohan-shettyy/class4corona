@@ -6,6 +6,7 @@ var peerConnection;
 var uuid;
 var serverConnection;
 var potentialCandidates = [];
+let inboundStream = null;
 
 var peerConnectionConfig = {
     'iceServers': [
@@ -39,7 +40,7 @@ function pageReady() {
 
 function getUserMediaSuccess(stream) {
     localStream = stream;
-    // localVideo.srcObject = stream;
+    
 }
 
 function start(isCaller) {
@@ -48,9 +49,7 @@ function start(isCaller) {
     console.log("new RTCconnection")
     peerConnection.onicecandidate = gotIceCandidate;
     peerConnection.ontrack = gotRemoteStream;
-    for (const track of localStream.getTracks()) {
-        peerConnection.addTrack(track, localStream);
-      }
+    peerConnection.addTrack(localStream.getTracks()[0]);
     peerConnection.createOffer().then((desc) => {
         createdDescription(desc);
     }).catch(errorHandler);
@@ -90,11 +89,17 @@ function createdDescription(description) {
     }).catch(errorHandler);
 }
 
-function gotRemoteStream(event) {
+function gotRemoteStream(e) {
     console.log('got remote stream');
-    console.log(event)
-    remoteStream.addTrack(event.track, remoteStream);
-    remoteVideo.play();
+    if (e.streams && e.streams[0]) {
+        remoteVideo.srcObject = e.streams[0];
+      } else {
+        if (!inboundStream) {
+          inboundStream = new MediaStream();
+          remoteVideo.srcObject = inboundStream;
+        }
+        inboundStream.addTrack(e.track);
+      }
 }
 
 function errorHandler(error) {
