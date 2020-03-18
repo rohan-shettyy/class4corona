@@ -12,7 +12,8 @@ var peerConnectionConfig = {
     'iceServers': [
         { 'urls': 'stun:stun.stunprotocol.org:3478' },
         { 'urls': 'stun:stun.l.google.com:19302' },
-    ]
+    ],
+    sdpSemantics: 'unified-plan'
 };
 
 function pageReady() {
@@ -50,6 +51,7 @@ function start(isCaller) {
     peerConnection.onicecandidate = gotIceCandidate;
     peerConnection.ontrack = gotRemoteStream;
     peerConnection.addTrack(localStream.getTracks()[0]);
+    peerConnection.addTransceiver("video");
     peerConnection.createOffer().then((desc) => {
         createdDescription(desc);
     }).catch(errorHandler);

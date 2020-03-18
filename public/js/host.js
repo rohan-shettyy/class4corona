@@ -10,7 +10,8 @@ var peerConnectionConfig = {
     'iceServers': [
         { 'urls': 'stun:stun.stunprotocol.org:3478' },
         { 'urls': 'stun:stun.l.google.com:19302' },
-    ]
+    ],
+    sdpSemantics: 'unified-plan'
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -49,7 +50,6 @@ function getUserMediaSuccess(stream) {
 function start(uid) {
     peerConnections[uid] = new RTCPeerConnection(peerConnectionConfig);
     peerConnections[uid].onicecandidate = gotIceCandidate;
-
     for (const track of localStream.getTracks()) {
         peerConnections[uid].addTrack(track, localStream);
       }
@@ -64,7 +64,6 @@ function gotMessageFromServer(message) {
     // Ignore messages from ourself
     if (signal.uuid == uuid) return;
     if (signal.sender == 'host') return;
-    console.log(signal)
     if (signal.sdp) {
 
         peerConnections[signal.uuid].setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(function() {
