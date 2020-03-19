@@ -10,6 +10,8 @@ var uuid;
 var webcam;
 var serverConnection;
 var potentialCandidates = [];
+const urlParams = new URLSearchParams(window.location.search);
+const code = urlParams.get('session');
 
 var peerConnectionConfig = {
     'iceServers': [
@@ -30,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     serverConnection = io();
     serverConnection.connect();
-    serverConnection.emit('create', 'room1')
+    serverConnection.emit('create', code)
 
     console.log('Opened socket.io connection')
 
@@ -112,14 +114,14 @@ function gotMessageFromServer(message) {
 
 function gotIceCandidate(event) {
     if (event.candidate != null) {
-        serverConnection.emit('message', JSON.stringify({ 'ice': event.candidate, 'uuid': uuid, 'sender': 'host' }));
+        serverConnection.emit('message', JSON.stringify({ 'room': code, 'ice': event.candidate, 'uuid': uuid, 'sender': 'host' }));
     }
 }
 
 function createdDescription(description, uid) {
 
     peerConnections[uid].setLocalDescription(description).then(function() {
-        serverConnection.emit('message', JSON.stringify({ 'sdp': peerConnections[uid].localDescription, 'uuid': uuid, sender: 'host' }));
+        serverConnection.emit('message', JSON.stringify({ 'room': code, 'sdp': peerConnections[uid].localDescription, 'uuid': uuid, sender: 'host' }));
     }).catch(errorHandler);
 }
 

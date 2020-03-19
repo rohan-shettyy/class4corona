@@ -10,6 +10,9 @@ var uuid;
 var serverConnection;
 var potentialCandidates = [];
 let inboundStream = null;
+const urlParams = new URLSearchParams(window.location.search);
+const code = urlParams.get('session');
+
 
 var peerConnectionConfig = {
     'iceServers': [
@@ -32,7 +35,7 @@ function pageReady() {
 
     serverConnection = io();
     serverConnection.connect();
-    serverConnection.emit('create', 'room1')
+    serverConnection.emit('create', code)
 
     serverConnection.on('message', gotMessageFromServer);
 
@@ -88,14 +91,14 @@ function gotMessageFromServer(message) {
 
 function gotIceCandidate(event) {
     if (event.candidate != null) {
-        serverConnection.emit('message', JSON.stringify({ 'ice': event.candidate, 'uuid': uuid, 'sender': 'client' }));
+        serverConnection.emit('message', JSON.stringify({ 'room': code, 'ice': event.candidate, 'uuid': uuid, 'sender': 'client' }));
     }
 }
 
 function createdDescription(description) {
 
     peerConnection.setLocalDescription(description).then(function() {
-        serverConnection.emit('message', JSON.stringify({ 'sdp': peerConnection.localDescription, 'uuid': uuid, 'sender': 'client' }));
+        serverConnection.emit('message', JSON.stringify({ 'room': code, 'sdp': peerConnection.localDescription, 'uuid': uuid, 'sender': 'client' }));
     }).catch(errorHandler);
 }
 

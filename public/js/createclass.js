@@ -5,18 +5,18 @@ $(document).ready(function() {
         school = $("#school").val();
         s_class = $("#classname").val();
         desc = $("#description").val();
-        reqcode = $("#RequireCode").val();
+        code = Math.floor(100000 + Math.random() * 900000)
         $.post("/createclass", {
             name: name,
             school: school,
             s_class: s_class,
             description: desc,
-            reqcode: reqcode
+            code: code
         }, function(data) {
             if (data === 'done') {
                 alert("class failed to be created");
             } else {
-                $(location).attr('href', 'host?' + s_class)
+                $(location).attr('href', 'host?session=' + code)
             }
         });
     });
