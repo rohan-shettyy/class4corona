@@ -28,11 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
     screenToggle = document.getElementById('screenshareToggle');
     screenToggle.addEventListener('change', screencapToggled);
 
-    serverConnection = new WebSocket('wss://' + window.location.hostname + ':443');
+    serverConnection = io();
 
-    console.log("Opened WS on :443")
+    console.log('Opened socket.io connection')
 
-    serverConnection.onmessage = gotMessageFromServer;
+    serverConnection.on('message', gotMessageFromServer);
 
     var webcamConstraints = {
         video: true,
@@ -87,7 +87,7 @@ function start(uid) {
 
 function gotMessageFromServer(message) {
 
-    var signal = JSON.parse(message.data);
+    var signal = JSON.parse(message);
 
     if (!peerConnections[signal.uuid]) start(signal.uuid);
 
@@ -118,7 +118,7 @@ function gotIceCandidate(event) {
 function createdDescription(description, uid) {
 
     peerConnections[uid].setLocalDescription(description).then(function() {
-        serverConnection.send(JSON.stringify({ 'sdp': peerConnections[uid].localDescription, 'uuid': uuid, sender: 'host' }));
+        serverConnection.emit('message', JSON.stringify({ 'sdp': peerConnections[uid].localDescription, 'uuid': uuid, sender: 'host' }));
     }).catch(errorHandler);
 }
 

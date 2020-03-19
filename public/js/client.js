@@ -30,8 +30,8 @@ function pageReady() {
     remoteDisplay.srcObject = displayStream;
     remoteDisplay.play();
 
-    serverConnection = new WebSocket('wss://' + window.location.hostname + ':443');
-    serverConnection.onmessage = gotMessageFromServer;
+    serverConnection = io();
+    serverConnection.on('message', gotMessageFromServer);
 
     var constraints = {
         video: false,
@@ -66,7 +66,7 @@ function start(isCaller) {
 function gotMessageFromServer(message) {
     if (!peerConnection) start(false);
 
-    var signal = JSON.parse(message.data);
+    var signal = JSON.parse(message);
 
     // Ignore messages from ourself
     if (signal.uuid == uuid) return;
@@ -92,7 +92,7 @@ function gotIceCandidate(event) {
 function createdDescription(description) {
 
     peerConnection.setLocalDescription(description).then(function() {
-        serverConnection.send(JSON.stringify({ 'sdp': peerConnection.localDescription, 'uuid': uuid, 'sender': 'client' }));
+        serverConnection.emit('message', JSON.stringify({ 'sdp': peerConnection.localDescription, 'uuid': uuid, 'sender': 'client' }));
     }).catch(errorHandler);
 }
 

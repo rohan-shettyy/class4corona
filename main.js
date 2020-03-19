@@ -6,8 +6,7 @@ var server = require('https').createServer({
         cert: fs.readFileSync("domain.cert.pem")
     },
     app).listen(443);
-const WebSocket = require('ws');
-const WebSocketServer = WebSocket.Server;
+var io = require('socket.io').listen(server);
 var path = require('path');
 var cors = require('cors');
 var cookieParser = require('cookie-parser');
@@ -76,23 +75,11 @@ app.get('/class', function(req, res) {
 
 rooms = []
 
-
-// Create a server for handling websocket calls
-const wss = new WebSocketServer({ server: server });
-
-console.log("Started Websocket Server")
-
-wss.on('connection', function(ws) {
-    ws.on('message', function(message) {
+io.on('connection', function(socket) {
+    socket.on('message', function(message) {
         // Broadcast any received message to all clients
-        wss.broadcast(message);
+        socket.broadcast.emit(message);
     });
-});
 
-wss.broadcast = function(data) {
-    this.clients.forEach(function(client) {
-        if (client.readyState === WebSocket.OPEN) {
-            client.send(data);
-        }
-    });
-};
+
+});
