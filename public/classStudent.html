@@ -1,76 +1,79 @@
 <!doctype HTML>
 <html>
-    <head>
-        <link rel="stylesheet" href="css/home.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    
-        <style>
-          .outer{
-              width: 900px;
-              margin: auto;
-          }
-          .room{
-              width: 400px;
-              margin: 5px;
-              float: left;
-            
-          }
-          .messages{
-              width: 390px;
-              margin:5px;
-              height: 300px;
-              background-color: aqua;
-          }
-          .txt-send{
-              width: 300px;
-              margin:5px;
-          }
-          
-      </style>
-      </head>
-    <body>
-        <p>Camera Feed</p>
 
-        <div class="outer">
-          <div class="room">
-              <h1>NODE</h1>
-              <div class="messages" id="nMessages"></div>
-              <form>
-                  <input type="text" name="" id="nTxt" class="txt-send">
-                  <input type="button" value="Send" id="nBtn" class="btn">
-              </form>
-          </div>
-      </div>
+<head>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-        <canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas>
-        <div>
+    <style>
+        .outer {
+            width: 900px;
+            margin: auto;
+        }
+        
+        .room {
+            width: 400px;
+            margin: 5px;
+            float: left;
+        }
+        
+        .messages {
+            width: 390px;
+            margin: 5px;
+            height: 300px;
+            background-color: aqua;
+        }
+        
+        .txt-send {
+            width: 300px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Camera Feed</p>
+
+    <div class="outer">
+        <div class="room">
+            <h1>NODE</h1>
+            <div class="messages" id="nMessages"></div>
             <form>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Question / Answer</label>
-                  <input type="question" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Question">
-                  <small id="emailHelp" class="form-text text-muted">*Your question will go directly to the teacher unless specified otherwise</small>
-                </div>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile">Upload File for Teacher Review</label>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                      <label class="form-check-label" for="invalidCheck2">
+                <input type="text" name="" id="nTxt" class="txt-send">
+                <input type="button" value="Send" id="nBtn" class="btn">
+            </form>
+        </div>
+    </div>
+
+    <canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas>
+    <div>
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Question / Answer</label>
+                <input type="question" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Question">
+                <small id="emailHelp" class="form-text text-muted">*Your question will go directly to the teacher unless specified otherwise</small>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Upload File for Teacher Review</label>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                    <label class="form-check-label" for="invalidCheck2">
                         Quote For The Entire Class?
                       </label>
-                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Raise Hand</button>
-              </form>
-        </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Raise Hand</button>
+        </form>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
 
-        socket.on("connect", function(){
+        socket.on("connect", function() {
             var nRoom = "nRoom";
             socket.emit('nRoom', nRoom);
 
@@ -83,19 +86,19 @@
         var nBtn = document.getElementById("nBtn");
         var nTxt = document.getElementById("nTxt");
         var nMessages = document.getElementById("nMessages");
-        
 
-        nBtn.addEventListener("click", function(){
+
+        nBtn.addEventListener("click", function() {
             socket.emit("node new message", nTxt.value);
         });
-        socket.on("node news", function(data){
+        socket.on("node news", function(data) {
             nMessages.innerHTML = nMessages.innerHTML + "<br>" + data;
         });
-        socket.on("node new user", function(data){
+        socket.on("node new user", function(data) {
             nMessages.innerHTML = nMessages.innerHTML + "<br>" + data;
         });
-
     </script>
 
-    </body>
+</body>
+
 </html>

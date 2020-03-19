@@ -1,66 +1,74 @@
 <!doctype HTML>
 <html>
-    <head>
-        <link rel="stylesheet" href="css/home.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
-        <script>
-          $(document).ready(function(){
+
+<head>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+    </script>
+    <script>
+        $(document).ready(function() {
             var name, school, s_class, code;
-            $("#submit").click(function(){
-              name=$("#name").val();
-              school=$("#school").val();
-              s_class=$("#class").val();
-              code=$("#code").val();
-              $.post("/joinclass",{name: name,school: school, s_class: s_class, code: code}, function(data){
-                if(data==='done')
-                  {
-                    alert("class created");
-                  }
-              });
+            $("#submit").click(function() {
+                name = $("#name").val();
+                school = $("#school").val();
+                s_class = $("#class").val();
+                code = $("#code").val();
+                $.post("/joinclass", {
+                    name: name,
+                    school: school,
+                    s_class: s_class,
+                    code: code
+                }, function(data) {
+                    if (data === 'done') {
+                        alert("class created");
+                    }
+                });
             });
-          });
-        </script>
-    </head>
-    <body>
-        <div class="TitleDiv container w-50">
-            <h2 class="HomeHeaderSmall">Join a Class</h2>
-        </div>
-        <div class="InputDiv container">
-            <form action="">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="name" class="form-control" id="name" placeholder="Johnny Mac">
-                </div>
-                <div class="form-group">
-                    <label for="school">School</label>
-                    <select class="form-control" id="school">
+        });
+    </script>
+</head>
+
+<body>
+    <div class="TitleDiv container w-50">
+        <h2 class="HomeHeaderSmall">Join a Class</h2>
+    </div>
+    <div class="InputDiv container">
+        <form action="">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="name" class="form-control" id="name" placeholder="Johnny Mac">
+            </div>
+            <div class="form-group">
+                <label for="school">School</label>
+                <select class="form-control" id="school">
                       <option>Sir John A Macdonald</option>
                       <option>2</option>
                       <option>3</option>
                       <option>4</option>
                       <option>5</option>
                     </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="class">Class</label>
-                    <select multiple class="form-control" id="class">
+            </div>
+            <div class="form-group">
+                <label for="class">Class</label>
+                <select multiple class="form-control" id="class">
                       <option>MCV4UI</option>
                       <option>2</option>
                       <option>3</option>
                       <option>4</option>
                       <option>5</option>
                     </select>
-                  </div>
-                <div class="form-group">
-                    <label for="code">Code</label>
-                    <input type="name" class="form-control" id="code" placeholder="E.g. MCV4U-XXX-XXX *If Required">
-                    <small id="emailHelp" class="form-text text-muted">*This is a code given to you by your Teacher via google classroom or Email</br> Not to be confused with just the Course Code</small>
-                </div>
+            </div>
+            <div class="form-group">
+                <label for="code">Code</label>
+                <input type="name" class="form-control" id="code" placeholder="E.g. MCV4U-XXX-XXX *If Required">
+                <small id="emailHelp" class="form-text text-muted">*This is a code given to you by your Teacher via google classroom or Email</br> Not to be confused with just the Course Code</small>
+            </div>
 
-                <input type="submit" id="submit" value="Join Class">
-              </form>
-        </div>
-    </body>
+            <input type="submit" id="submit" value="Join Class">
+        </form>
+    </div>
+</body>
+
 </html>
