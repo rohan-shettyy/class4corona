@@ -1,9 +1,10 @@
 html, body {
-    height:100%;
+    margin: 0;
+    padding: 0;
 }
 
 .main {
-    min-height:100vh;
+    padding: 0;
 }
 
 .title-text {
@@ -17,13 +18,19 @@ html, body {
     text-align: center;
 }
 
-.display-1 {
-    line-height: 15vh;
-}
 
 .title-half {
     background: linear-gradient(#8ADEC7, #4A9E87);
-    box-shadow: 8px 0px 16px #AAA;
+    box-shadow: 0px 0px 32px #888;
+    padding: 0;
+    margin: auto;
+    min-width: 50%;
+}
+
+.function-half {
+    min-width: 50%;
+    padding: 0;
+    margin: auto;
 }
 
 .main-text {
@@ -37,6 +44,13 @@ html, body {
 
 .btn-lg {
     font-family: 'Sen';
+}
+
+.credit-container {
+    position: relative;
+    bottom: 0;
+    height: auto;
+    min-height: 5vh;
 }
 
 .credit-text {
