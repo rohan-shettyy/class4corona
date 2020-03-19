@@ -1,6 +1,32 @@
 html, body {
-    background-color: #F4F4DD !important;
+    height:100%;
 }
+
+.main {
+    min-height:100vh;
+}
+
+.title-text {
+    font-size:50px;
+}
+
+.title-half {
+    background-color:#6ABEA7;
+}
+
+.main-text {
+    font-family: 'Roboto', sans-serif;
+}
+
+.credit-text {
+    position:absolute;
+    right:15px;
+    bottom:15px;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+
 
 .TitleDiv {
     margin: auto;
@@ -78,7 +104,7 @@ button:focus {
 
 .credits {
     vertical-align: bottom;
-    text-align: center;
+    text-align: right;
     margin:auto;
     font-family: "Lato";
     font-size: 16px;
