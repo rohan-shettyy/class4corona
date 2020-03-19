@@ -17,7 +17,10 @@ A chat is available to submit your questions at any time, but if you have an imp
 
 ## How to use it?
 
-It's not quite ready to be used as of right now. However, it is being constantly developed and will be working *hopefully* by March 21 2020. Stay Tuned.
+Head to [class4corona.com].
+If you are a teacher, click "Create Class", and if you are a student, click "Join Class".
+Follow the process to host or join a session.
+As a teacher, click "start stream" to begin hosting your class. As a student, the stream should appear automatically when the teacher starts hosting.
 
 ## Credits
 
