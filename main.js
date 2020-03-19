@@ -10,7 +10,10 @@ const WebSocket = require('ws');
 const WebSocketServer = WebSocket.Server;
 var path = require('path');
 var cors = require('cors');
+var cookieParser = require('cookie-parser');
 
+
+app.use(cookieParser());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }))
 
@@ -37,6 +40,7 @@ app.get('/createclass', function(req, res) {
 });
 
 app.post('/createclass', function(req, res) {
+
     var user_name = req.body.name;
     var school = req.body.school;
     var s_class = req.body.s_class;
@@ -50,10 +54,13 @@ app.post('/createclass', function(req, res) {
 });
 
 app.get('/joinclass', function(req, res) {
+    res.cookie("class", classes)
+    res.send(req.cookies)
     res.sendFile(__dirname + '/public/joinClass.html');
 });
 
 app.post('/joinclass', function(req, res) {
+
     var user_name = req.body.name;
     var school = req.body.school;
     var s_class = req.body.s_clas;
