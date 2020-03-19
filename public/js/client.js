@@ -48,7 +48,7 @@ function pageReady() {
 
 function getUserMediaSuccess(stream) {
     localStream = stream;
-    
+
 }
 
 function start(isCaller) {
@@ -79,7 +79,7 @@ function gotMessageFromServer(message) {
             }
         }).catch(errorHandler);
     } else if (signal.ice) {
-            peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
+        peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
     }
 }
 
@@ -107,8 +107,8 @@ function gotRemoteStream(e) {
             }
         } else {
             if (!inboundStream) {
-            inboundStream = new MediaStream();
-            remoteVideo.srcObject = inboundStream;
+                inboundStream = new MediaStream();
+                remoteVideo.srcObject = inboundStream;
             }
             inboundStream.addTrack(e.track);
         }

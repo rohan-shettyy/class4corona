@@ -43,12 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
         let md = navigator.mediaDevices;
         if (!md || !md.enumerateDevices) return callback(false);
         md.enumerateDevices().then(devices => {
-          callback(devices.some(device => 'videoinput' === device.kind));
+            callback(devices.some(device => 'videoinput' === device.kind));
         })
-      }
-      
-      detectWebcam(function(hasWebcam) {
-        if (!hasWebcam){
+    }
+
+    detectWebcam(function(hasWebcam) {
+        if (!hasWebcam) {
             webcamConstraints.video = false;
         }
         if (navigator.mediaDevices.getUserMedia) {
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             alert('Your browser does not support getUserMedia API');
         }
-      });
+    });
 });
 
 function getDisplayMediaSuccess(screen) {
@@ -76,12 +76,12 @@ function start(uid) {
     peerConnections[uid] = new RTCPeerConnection(peerConnectionConfig);
     peerConnections[uid].onicecandidate = gotIceCandidate;
 
-        for (const track of localStream.getTracks()) {
-            peerConnections[uid].addTrack(track, localStream);
-        
+    for (const track of localStream.getTracks()) {
+        peerConnections[uid].addTrack(track, localStream);
+
     }
     for (const track of displayStream.getTracks()) {
-    peerConnections[uid].addTrack(track, displayStream);
+        peerConnections[uid].addTrack(track, displayStream);
     }
 }
 
@@ -98,14 +98,14 @@ function gotMessageFromServer(message) {
 
         peerConnections[signal.uuid].setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(function() {
             if (signal.sdp.type == 'offer') {
-                
-                peerConnections[signal.uuid].createAnswer().then( (desc) => {
+
+                peerConnections[signal.uuid].createAnswer().then((desc) => {
                     createdDescription(desc, signal.uuid)
                 }).catch(errorHandler);
             }
         }).catch(errorHandler);
     } else if (signal.ice) {
-            peerConnections[signal.uuid].addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
+        peerConnections[signal.uuid].addIceCandidate(new RTCIceCandidate(signal.ice)).catch(errorHandler);
     }
 }
 
@@ -118,7 +118,7 @@ function gotIceCandidate(event) {
 function createdDescription(description, uid) {
 
     peerConnections[uid].setLocalDescription(description).then(function() {
-        serverConnection.send(JSON.stringify({ 'sdp': peerConnections[uid].localDescription, 'uuid': uuid, sender: 'host'}));
+        serverConnection.send(JSON.stringify({ 'sdp': peerConnections[uid].localDescription, 'uuid': uuid, sender: 'host' }));
     }).catch(errorHandler);
 }
 
@@ -138,7 +138,7 @@ function screencapToggled() {
             alert('Your browser does not support getDisplayMedia API');
         }
     } else {
-        displayStream.getTracks().forEach( (track) => {track.stop()});
+        displayStream.getTracks().forEach((track) => { track.stop() });
         localDisplay.pause();
         localDisplay.removeAttribute('srcObject'); // empty source
         localDisplay.load();
