@@ -4,6 +4,7 @@ var localDisplay;
 var screenCaptureOn = false;
 var displayStream;
 var remoteVideo;
+var screenToggle;
 var peerConnections = {};
 var uuid;
 var webcam;
@@ -23,6 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     localVideo = document.getElementById('localVideo');
     localDisplay = document.getElementById('screenCapture');
+
+    screenToggle = document.getElementById('screenshareToggle');
+    screenToggle.addEventListener('change', screencapToggled);
 
     serverConnection = new WebSocket('wss://' + window.location.hostname + ':443');
 
@@ -53,18 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
             alert('Your browser does not support getUserMedia API');
         }
       });
-
-    localDisplay.addEventListener('click', (e) => {
-        var screenConstraints = {
-            video: true,
-            audio: true
-        }
-        if (navigator.mediaDevices.getDisplayMedia) {
-            navigator.mediaDevices.getDisplayMedia(screenConstraints).then(getDisplayMediaSuccess).catch(errorHandler);
-        } else {
-            alert('Your browser does not support getDisplayMedia API');
-        }
-    });
 });
 
 function getDisplayMediaSuccess(screen) {
@@ -132,6 +124,25 @@ function createdDescription(description, uid) {
 
 function errorHandler(error) {
     console.log(error);
+}
+
+function screencapToggled() {
+    if (this.checked) {
+        var screenConstraints = {
+            video: true,
+            audio: true
+        }
+        if (navigator.mediaDevices.getDisplayMedia) {
+            navigator.mediaDevices.getDisplayMedia(screenConstraints).then(getDisplayMediaSuccess).catch(errorHandler);
+        } else {
+            alert('Your browser does not support getDisplayMedia API');
+        }
+    } else {
+        displayStream.getTracks().forEach( (track) => {track.stop()});
+        localDisplay.pause();
+        localDisplay.removeAttribute('srcObject'); // empty source
+        localDisplay.load();
+    }
 }
 
 function createUUID() {

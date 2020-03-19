@@ -4,11 +4,17 @@
 <head>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="js/host.js"></script>
+    <link rel="stylesheet" href="css/hosting.css" />
 </head>
 
 <body>
     <video id="screenCapture" autoplay muted style="width:40%;" oncontextmenu="return false;">Click here to activate screen capture</video>
     <video id="localVideo" autoplay muted style="width:40%;" oncontextmenu="return false;"></video>
+
+    <label class="switch">
+        <input type="checkbox" id="screenshareToggle">
+        <span class="slider round"></span>
+    </label>
 </body>
 
 </html>
