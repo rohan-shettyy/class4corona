@@ -17,7 +17,7 @@ A chat is available to submit your questions at any time, but if you have an imp
 
 ## How to use it?
 
-Head to [class4corona.com].
+Head to [https://class4corona.com](class4corona.com).
 If you are a teacher, click "Create Class", and if you are a student, click "Join Class".
 Follow the process to host or join a session.
 As a teacher, click "start stream" to begin hosting your class. As a student, the stream should appear automatically when the teacher starts hosting.
