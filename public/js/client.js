@@ -85,7 +85,7 @@ function gotMessageFromServer(message) {
 
 function gotIceCandidate(event) {
     if (event.candidate != null) {
-        serverConnection.send(JSON.stringify({ 'ice': event.candidate, 'uuid': uuid, 'sender': 'client' }));
+        serverConnection.emit('message', JSON.stringify({ 'ice': event.candidate, 'uuid': uuid, 'sender': 'client' }));
     }
 }
 

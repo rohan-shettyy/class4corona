@@ -6,7 +6,7 @@ var server = require('https').createServer({
         cert: fs.readFileSync("domain.cert.pem")
     },
     app).listen(443);
-var io = require('socket.io').listen(server);
+var io = require('socket.io')(server);
 var path = require('path');
 var cors = require('cors');
 var cookieParser = require('cookie-parser');
@@ -76,10 +76,8 @@ app.get('/class', function(req, res) {
 rooms = []
 
 io.on('connection', function(socket) {
+    console.log('user connected');
     socket.on('message', function(message) {
-        // Broadcast any received message to all clients
-        socket.broadcast.emit(message);
+        socket.broadcast.emit('message', message);
     });
-
-
 });

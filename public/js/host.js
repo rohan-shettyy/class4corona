@@ -86,7 +86,6 @@ function start(uid) {
 }
 
 function gotMessageFromServer(message) {
-
     var signal = JSON.parse(message);
 
     if (!peerConnections[signal.uuid]) start(signal.uuid);
@@ -111,7 +110,7 @@ function gotMessageFromServer(message) {
 
 function gotIceCandidate(event) {
     if (event.candidate != null) {
-        serverConnection.send(JSON.stringify({ 'ice': event.candidate, 'uuid': uuid, 'sender': 'host' }));
+        serverConnection.emit('message', JSON.stringify({ 'ice': event.candidate, 'uuid': uuid, 'sender': 'host' }));
     }
 }
 
