@@ -31,6 +31,9 @@ function pageReady() {
     remoteDisplay.play();
 
     serverConnection = io();
+    serverConnection.connect();
+    serverConnection.emit('create', 'room1')
+
     serverConnection.on('message', gotMessageFromServer);
 
     var constraints = {

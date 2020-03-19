@@ -73,11 +73,13 @@ app.get('/class', function(req, res) {
     res.sendFile(__dirname + '/public/session.html');
 });
 
-rooms = []
-
 io.on('connection', function(socket) {
     console.log('user connected');
+    socket.on('create', function(room) {
+        socket.join(room);
+        console.log("Joined" + room)
+    });
     socket.on('message', function(message) {
-        socket.broadcast.emit('message', message);
+        socket.broadcast.to('room1').emit('message', message);
     });
 });

@@ -29,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
     screenToggle.addEventListener('change', screencapToggled);
 
     serverConnection = io();
+    serverConnection.connect();
+    serverConnection.emit('create', 'room1')
 
     console.log('Opened socket.io connection')
 
