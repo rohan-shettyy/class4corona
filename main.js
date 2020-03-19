@@ -10,16 +10,6 @@ const WebSocket = require('ws');
 const WebSocketServer = WebSocket.Server;
 var path = require('path');
 var cors = require('cors');
-// var http = require('http');
-
-// http.createServer(function(req, res) {
-//     res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-//     res.end();
-// }).listen(80);
-
-app.get('/insecure', function(req, res) {
-    res.send('Dangerous!');
-});
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }))
@@ -30,6 +20,18 @@ app.get('/host', function(req, res) {
     res.sendFile(__dirname + '/public/hosting.html');
 });
 
+class Class {
+    constructor(teacherName, school, subject, description, reqcode) {
+        this.teacherName = teacherName;
+        this.school = school;
+        this.subject = subject;
+        this.description = description;
+        this.reqcode = reqcode;
+    }
+}
+
+classes = []
+
 app.get('/createclass', function(req, res) {
     res.sendFile(__dirname + '/public/createClass.html');
 });
@@ -37,12 +39,14 @@ app.get('/createclass', function(req, res) {
 app.post('/createclass', function(req, res) {
     var user_name = req.body.name;
     var school = req.body.school;
-    var s_class = req.body.s_clas;
-    var description = req.body.desc;
+    var s_class = req.body.s_class;
+    var description = req.body.description;
     var reqcode = req.body.reqcode
 
-    console.log("User name = " + user_name + ", school is " + school);
-    res.end("yes");
+    console.log(user_name, school, s_class, description, reqcode)
+    classes.push(new Class(user_name, school, s_class, description, reqcode))
+    console.log(classes);
+    res.end("End")
 });
 
 app.get('/joinclass', function(req, res) {
@@ -62,6 +66,9 @@ app.post('/joinclass', function(req, res) {
 app.get('/class', function(req, res) {
     res.sendFile(__dirname + '/public/session.html');
 });
+
+rooms = []
+
 
 // Create a server for handling websocket calls
 const wss = new WebSocketServer({ server: server });
