@@ -97,20 +97,25 @@ function createdDescription(description) {
 }
 
 function gotRemoteStream(e) {
-    console.log(e)
-    if (e.streams && e.streams[0]) {
-        if (e.transceiver.mid == screenTransceiver.mid) {
-            displayStream.addTrack(e.track);
+    if (e.streams[0].getVideoTracks().length > 0) {
+
+        if (e.streams && e.streams[0]) {
+            if (e.transceiver.mid == screenTransceiver.mid) {
+                displayStream.addTrack(e.track);
+            } else {
+                remoteVideo.srcObject = e.streams[0];
+            }
         } else {
-            remoteVideo.srcObject = e.streams[0];
+            if (!inboundStream) {
+            inboundStream = new MediaStream();
+            remoteVideo.srcObject = inboundStream;
+            }
+            inboundStream.addTrack(e.track);
         }
-      } else {
-        if (!inboundStream) {
-          inboundStream = new MediaStream();
-          remoteVideo.srcObject = inboundStream;
-        }
-        inboundStream.addTrack(e.track);
-      }
+    } else {
+        document.getElementById('audioOnly').srcObject = e.streams[0];
+        document.getElementById('audioOnly').play();
+    }
 }
 
 function errorHandler(error) {

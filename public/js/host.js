@@ -6,6 +6,7 @@ var displayStream;
 var remoteVideo;
 var peerConnections = {};
 var uuid;
+var webcam;
 var serverConnection;
 var potentialCandidates = [];
 
@@ -34,11 +35,24 @@ document.addEventListener("DOMContentLoaded", () => {
         audio: true,
     };
 
-    if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia(webcamConstraints).then(getUserMediaSuccess).catch(errorHandler);
-    } else {
-        alert('Your browser does not support getUserMedia API');
-    }
+    function detectWebcam(callback) {
+        let md = navigator.mediaDevices;
+        if (!md || !md.enumerateDevices) return callback(false);
+        md.enumerateDevices().then(devices => {
+          callback(devices.some(device => 'videoinput' === device.kind));
+        })
+      }
+      
+      detectWebcam(function(hasWebcam) {
+        if (!hasWebcam){
+            webcamConstraints.video = false;
+        }
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia(webcamConstraints).then(getUserMediaSuccess).catch(errorHandler);
+        } else {
+            alert('Your browser does not support getUserMedia API');
+        }
+      });
 
     localDisplay.addEventListener('click', (e) => {
         var screenConstraints = {
@@ -50,10 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             alert('Your browser does not support getDisplayMedia API');
         }
-    });
-
-    document.getElementById("start").addEventListener("click", (e) => {
-        start(uuid)
     });
 });
 
@@ -73,9 +83,11 @@ function getUserMediaSuccess(stream) {
 function start(uid) {
     peerConnections[uid] = new RTCPeerConnection(peerConnectionConfig);
     peerConnections[uid].onicecandidate = gotIceCandidate;
-    for (const track of localStream.getTracks()) {
-        peerConnections[uid].addTrack(track, localStream);
-      }
+
+        for (const track of localStream.getTracks()) {
+            peerConnections[uid].addTrack(track, localStream);
+        
+    }
     for (const track of displayStream.getTracks()) {
     peerConnections[uid].addTrack(track, displayStream);
     }

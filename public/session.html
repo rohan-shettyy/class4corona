@@ -7,8 +7,9 @@
 </head>
 
 <body>
-    <video id="remoteDisplay" autoplay style="width:40%;"></video>
-    <video id="remoteVideo" autoplay style="width:40%;"></video>
+    <audio id="audioOnly" style="visibility: hidden" oncontextmenu="return false;"></audio>
+    <video id="remoteDisplay" autoplay style="width:40%;" oncontextmenu="return false;"></video>
+    <video id="remoteVideo" autoplay style="width:40%;" oncontextmenu="return false;"></video>
     <br />
 
     <input type="button" id="start" onclick="start(true)" value="Start Video"></input>
