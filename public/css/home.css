@@ -7,111 +7,41 @@ html, body {
 }
 
 .title-text {
-    font-size:50px;
+    font-size:45px;
+    font-family: 'Sen';
+    font-weight: 700;
+}
+
+.display-1, .sub-text{
+    font-weight: 700;
+    text-align: center;
+}
+
+.display-1 {
+    line-height: 15vh;
 }
 
 .title-half {
-    background-color:#6ABEA7;
+    background: linear-gradient(#8ADEC7, #4A9E87);
+    box-shadow: 8px 0px 16px #AAA;
 }
 
 .main-text {
     font-family: 'Roboto', sans-serif;
 }
 
+.num-text {
+    font-size: 120px;
+    text-shadow: 8px 8px 16px #4A9E87;
+}
+
+.btn-lg {
+    font-family: 'Sen';
+}
+
 .credit-text {
     position:absolute;
     right:15px;
     bottom:15px;
-    font-family: 'Roboto', sans-serif;
-}
-
-
-
-
-.TitleDiv {
-    margin: auto;
-    margin-top: 10vh;
-}
-
-.HomeHeaderSmall {
-    font-family: "Lato";
-    font-size:6vw;
-    font-weight:900;
-    text-align: center;
-    line-height: 15vh;
-    color: #FFAB2E;
-    text-shadow: 8px 8px 16px rgba(0, 0, 0, 0.25);
-}
-
-.HomeHeaderLarge {
-    font-family: "Lato";
-    font-size:7vw;
-    font-weight:900;
-    text-align: center;
-    line-height: 5vh;
-    color: #F44848;
-    text-shadow: 8px 8px 16px rgba(0, 0, 0, 0.25);
-}
-
-.CreateBtn {
-    background: #FFAB2E;
-    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
-    padding: 3vw;
-    margin: auto;
-    margin-right: 20px;
-    outline: none;
-    border: none;
-    font-family: "Lato";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 1.3vw;
-    color: #fafafa;
-}
-
-.BtnDiv {
-    margin: auto;
-    width: 40% !important;
-}
-
-.JoinBtn {
-    background: #F44848;
-    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
-    padding: 3vw;
-    margin: auto;
-    margin-left:20px;
-    outline: none;
-    border: none;
-    font-family: "Lato";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 1.3vw;
-    color: #fafafa
-}
-
-.JoinBtn:hover {
-    background-color: #D42828;
-}
-
-button:focus {
-    outline:none;
-}
-
-.CreateBtn:hover {
-    background-color: #DF8B0E;
-}
-
-.credits {
-    vertical-align: bottom;
-    text-align: right;
-    margin:auto;
-    font-family: "Lato";
-    font-size: 16px;
-    font-weight: 700;
-}
-
-.creditContainer {
-    position: absolute;
-    bottom: 10px;
+    font-family: 'Sen', sans-serif;
 }
