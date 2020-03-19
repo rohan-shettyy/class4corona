@@ -17,9 +17,9 @@ $(document).ready(function() {
     var codes = readCookie('codes').split('%2C')
 
     for (i = 0; i < schools.length; i++) {
-        var o = new Option(schools[i].replace(/%20/g, " ") + " " + courses[i], codes[i]);
+        var o = new Option(schools[i].replace(/%20/g, " ") + " - " + courses[i], codes[i]);
         /// jquerify the DOM object 'o' so we can use the html method
-        $(o).html(schools[i] + courses[i]);
+        $(o).html(schools[i].replace(/%20/g, " ") + " - " + courses[i]);
         $("#class").append(o);
     }
 
