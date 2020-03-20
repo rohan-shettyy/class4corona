@@ -12,6 +12,10 @@ var cors = require('cors');
 var cookieParser = require('cookie-parser');
 var low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
+var profanity = require('profanity-censor');
+
+var dictionary = ['fuck', 'shit', 'nigga', 'ass', 'pussy', 'bitch', 'fucker'];
+profanity.use(dictionary);
 
 var favicon = require('serve-favicon')
 
@@ -64,10 +68,10 @@ app.get('/createclass', function(req, res) {
 
 app.post('/createclass', function(req, res) {
 
-    var user_name = req.body.name;
-    var school = req.body.school;
-    var s_class = req.body.s_class;
-    var description = req.body.description;
+    var user_name = profanity.filter(req.body.name);
+    var school = profanity.filter(req.body.school);
+    var s_class = profanity.filter(req.body.s_class);
+    var description = profanity.filter(req.body.description);
     var code = req.body.code
 
     console.log(user_name, school, s_class, description, code)
@@ -85,8 +89,8 @@ app.post('/createclass', function(req, res) {
 
 app.post('/joinclass', function(req, res) {
 
-    var user_name = req.body.name;
-    var code = req.body.code;
+    var user_name = profanity.filter(req.body.name);
+    var code = profanity.filter(req.body.code);
 
     db.get('students').push({
         name: user_name,
