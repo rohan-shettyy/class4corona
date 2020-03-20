@@ -38,7 +38,7 @@
     text-shadow: 8px 8px 16px #4A9E87;
 }
 
-.btn-lg {
+.btn {
     font-family: 'Sen';
 }
 
@@ -54,4 +54,8 @@
     right:15px;
     bottom:15px;
     font-family: 'Sen', sans-serif;
+}
+
+#joinForm, #createForm {
+    font-family: 'Sen';
 }
