@@ -66,7 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     detectWebcam(function(hasWebcam) {
         if (!hasWebcam) {
+            webcam = false;
             webcamConstraints.video = false;
+        } else {
+            webcam = true;
         }
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia(webcamConstraints).then(getUserMediaSuccess).catch(errorHandler);
