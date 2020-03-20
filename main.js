@@ -14,6 +14,9 @@ var low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 var profanity = require('profanity-censor');
 
+var dictionary = ['fuck', 'shit', 'nigga', 'ass', 'pussy', 'bitch', 'fucker'];
+profanity.use(dictionary);
+
 var favicon = require('serve-favicon')
 
 const adapter = new FileSync('db.json')
