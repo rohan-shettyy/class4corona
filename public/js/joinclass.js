@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var name, school, s_class, code;
-
+    
     function readCookie(name) {
         var nameEQ = name + "=";
         var ca = document.cookie.split(';');

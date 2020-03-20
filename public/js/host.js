@@ -7,6 +7,7 @@ var remoteVideo;
 var screenToggle;
 var peerConnections = {};
 var uuid;
+var hosting = false;
 var webcam;
 var serverConnection;
 var potentialCandidates = [];
@@ -43,6 +44,19 @@ document.addEventListener("DOMContentLoaded", () => {
         audio: true,
     };
 
+    var hostBtn = document.getElementById('hostBtn');
+    hostBtn.addEventListener('click', function(e) {
+        if (hostBtn.innerText == "Start Hosting") {
+            hosting = true;
+            hostBtn.innerText = "Stop Hosting";
+            serverConnection.emit('startHost', code);
+        } else {
+            hosting = false;
+            hostBtn.innerText = "Start Hosting";
+            serverConnection.emit('stopHost', code);
+        }
+    });
+
     function detectWebcam(callback) {
         let md = navigator.mediaDevices;
         if (!md || !md.enumerateDevices) return callback(false);
@@ -73,7 +87,17 @@ function getDisplayMediaSuccess(screen) {
 function getUserMediaSuccess(stream) {
     localStream = stream;
     localVideo.srcObject = stream;
-    localVideo.play();
+    var promise = localVideo.play();
+    if (promise !== undefined) {
+        promise.then(_ => {
+          // Autoplay started!
+        }).catch(error => {
+          // Show something in the UI that the video is muted
+          localVideo.muted = true;
+          localVideo.play();
+          localVideo.muted = false;
+        });
+      }
 }
 
 function start(uid) {
@@ -84,13 +108,17 @@ function start(uid) {
         peerConnections[uid].addTrack(track, localStream);
 
     }
-    for (const track of displayStream.getTracks()) {
-        peerConnections[uid].addTrack(track, displayStream);
+    if (displayStream) {
+        for (const track of displayStream.getTracks()) {
+            peerConnections[uid].addTrack(track, displayStream);
+        }
     }
 }
 
 function gotMessageFromServer(message) {
     var signal = JSON.parse(message);
+
+    if (!hosting) return;
 
     if (!peerConnections[signal.uuid]) start(signal.uuid);
 

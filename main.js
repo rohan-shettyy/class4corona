@@ -89,4 +89,13 @@ io.on('connection', function(socket) {
         data = JSON.parse(message)
         socket.broadcast.to(data.room).emit('message', message);
     });
+
+    socket.on('startHost', function(room) {
+        console.log('start')
+        socket.broadcast.to(room).emit('startHost', 'x');
+    });
+
+    socket.on('stopHost', function(room) {
+        socket.broadcast.to(room).emit('stopHost', 'x');
+    });
 });

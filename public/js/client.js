@@ -38,6 +38,8 @@ function pageReady() {
     serverConnection.emit('create', code)
 
     serverConnection.on('message', gotMessageFromServer);
+    serverConnection.on('startHost', function(e){start(true)});
+    serverConnection.on('stopHost', endConnection)
 
     var constraints = {
         video: false,
@@ -58,6 +60,7 @@ function getUserMediaSuccess(stream) {
 }
 
 function start(isCaller) {
+    console.log("start");
     peerConnection = new RTCPeerConnection(peerConnectionConfig);
     peerConnection.onicecandidate = gotIceCandidate;
     peerConnection.ontrack = gotRemoteStream;
@@ -122,6 +125,17 @@ function gotRemoteStream(e) {
         document.getElementById('audioOnly').srcObject = e.streams[0];
         document.getElementById('audioOnly').play();
     }
+}
+
+function endConnection(e) {
+    displayStream.getTracks().forEach((track) => { track.stop() });
+    remoteDisplay.pause();
+    remoteDisplay.removeAttribute('srcObject'); // empty source
+    remoteDisplay.load();
+    remoteStream.getTracks().forEach((track) => { track.stop() });
+    remoteVideo.pause();
+    remoteVideo.removeAttribute('srcObject'); // empty source
+    remoteVideo.load();
 }
 
 function errorHandler(error) {
