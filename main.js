@@ -24,6 +24,20 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(express.static(__dirname + '/public'))
 
+app.use('/', function(req, res) {
+    var a_schools = db.get('classes').map('school').value();
+    var a_courses = db.get('classes').map('course').value();
+    var a_codes = db.get('classes').map('code').value();
+
+    console.log(a_schools.join(), a_schools.join());
+
+    res.cookie("schools", a_schools.join());
+    res.cookie("courses", a_courses.join());
+    res.cookie("codes", a_codes.join());
+
+    res.sendFile(__dirname + '/public/index.html');
+});
+
 app.get('/host', function(req, res) {
     res.sendFile(__dirname + '/public/hosting.html');
 });
@@ -59,16 +73,6 @@ app.post('/createclass', function(req, res) {
 });
 
 app.get('/joinclass', function(req, res) {
-    var a_schools = db.get('classes').map('school').value()
-    var a_courses = db.get('classes').map('course').value()
-    var a_codes = db.get('classes').map('code').value()
-
-    console.log(a_schools.join(), a_schools.join())
-
-    res.cookie("schools", a_schools.join())
-    res.cookie("courses", a_courses.join())
-    res.cookie("codes", a_codes.join())
-
     res.sendFile(__dirname + '/public/joinClass.html');
 });
 
