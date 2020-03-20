@@ -113,9 +113,7 @@ io.on('connection', function(socket) {
         socket.broadcast.to(data.room).emit('message', message);
     });
 
-    socket.on('disconnect', function() {
-        db.get('students').remove({ name: name }).write()
-    });
+    socket.on('disconnect', function() {});
 
     socket.on('raise hand', function(data) {
         socket.broadcast.to(data.room).emit('raise hand', data)
