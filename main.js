@@ -17,6 +17,13 @@ const adapter = new FileSync('db.json')
 const db = low(adapter)
 db.defaults({ classes: [], students: [], count: 0 }).write()
 
+var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
+
+app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
+
+app.get('/insecure', function(req, res) {
+    res.send('Dangerous!');
+});
 
 app.use(cookieParser());
 app.use(cors());
