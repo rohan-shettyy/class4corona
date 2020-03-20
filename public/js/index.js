@@ -33,7 +33,7 @@ function getcookies() {
 
 $(document).ready(function() {
     // Join class request
-    $("#joinClassSubmit").click(function() {
+    $("#joinForm").submit(function() {
         let name = $("#jname").val();
         let code = $("#class").val();
         $.post("/joinclass", {
@@ -49,7 +49,7 @@ $(document).ready(function() {
     });
 
     // Create class request
-    $("#createClassSubmit").click(function() {
+    $("#createForm").submit(function() {
         let name = $("#cname").val();
         let school = $("#school").val();
         let s_class = $("#classname").val();
