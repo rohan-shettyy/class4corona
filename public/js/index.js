@@ -57,7 +57,7 @@ $(document).ready(function() {
             if (data === 'done') {
                 alert("class failed to be created");
             } else {
-                window.location.replace('href', '/phost?session=' + code);
+                window.location.replace('/phost?session=' + code);
             }
         });
     });
