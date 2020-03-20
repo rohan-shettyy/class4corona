@@ -1,6 +1,4 @@
-$(document).ready(function() {
-
-
+function getcookies() {
     $.get("classlist", function(data) {});
 
     // Join class cookies
@@ -20,9 +18,9 @@ $(document).ready(function() {
         return "";
     }
 
-    let schools = readCookie('schools').split('%2C');
-    let courses = readCookie('courses').split('%2C');
-    let codes = readCookie('codes').split('%2C');
+    var schools = readCookie('schools').split(',');
+    var courses = readCookie('courses').split(',');
+    var codes = readCookie('codes').split(',');
 
     for (i = 0; i < schools.length; i++) {
         let o = new Option(schools[i].replace(/%20/g, " ") + " - " + courses[i], codes[i]);
@@ -30,11 +28,15 @@ $(document).ready(function() {
         $(o).html(schools[i].replace(/%20/g, " ") + " - " + courses[i]);
         $("#class").append(o);
     }
+}
 
+
+$(document).ready(function() {
     // Join class request
     $("#joinClassSubmit").click(function() {
         let name = $("#jname").val();
         let code = $("#class").val();
+
         $.post("/joinclass", {
             name: name,
             code: code
