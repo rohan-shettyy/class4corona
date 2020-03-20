@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    let hostname = window.location.hostname;
+
     // Join class cookies
     function readCookie(name) {
         let nameEQ = name + "=";
@@ -24,8 +24,7 @@ $(document).ready(function() {
     }
 
     // Join class request
-    $("#joinForm").submit(function(e) {
-        e.preventDefault();
+    $("#joinClassSubmit").click(function() {
         let name = $("#jname").val();
         let code = $("#class").val();
         $.post("/joinclass", {
@@ -35,15 +34,13 @@ $(document).ready(function() {
             if (data === 'done') {
                 alert("class created");
             } else {
-                window.location.href = `https://${hostname}/class?session=${code}&username=${name}`;
-                return false;
+                $(location).attr('href', '/class?session=' + code);
             }
         });
     });
 
     // Create class request
-    $("#createForm").submit(function(e) {
-        e.preventDefault();
+    $("#createClassSubmit").click(function() {
         let name = $("#cname").val();
         let school = $("#school").val();
         let s_class = $("#classname").val();
@@ -60,8 +57,7 @@ $(document).ready(function() {
             if (data === 'done') {
                 alert("class failed to be created");
             } else {
-                window.location.href = `https://${hostname}/phost?session=${code}`;
-                return false;
+                $(location).attr('href', '/phost?session=' + code);
             }
         });
     });
