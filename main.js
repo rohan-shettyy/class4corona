@@ -19,13 +19,8 @@ db.defaults({ classes: [], students: [], count: 0 }).write()
 
 var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
 
-http.get('*', function(req, res) {
-    res.redirect('https://' + req.headers.host + req.url);
-})
-
 app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
 
-http.listen(80);
 app.get('/insecure', function(req, res) {
     res.send('Dangerous!');
 });
