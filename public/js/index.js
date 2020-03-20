@@ -34,7 +34,8 @@ $(document).ready(function() {
             if (data === 'done') {
                 alert("class created");
             } else {
-                $(location).attr('href', 'class?session=' + code)
+                window.location.href = "https://class4corona.com/class?session="+code+"&username="+name;
+                return false;
             }
         });
     });
@@ -57,7 +58,8 @@ $(document).ready(function() {
             if (data === 'done') {
                 alert("class failed to be created");
             } else {
-                $(location).attr('href', 'host?session=' + code)
+                window.location.href = "https://class4corona.com/host?session="+code;
+                return false;
             }
         });
     });
