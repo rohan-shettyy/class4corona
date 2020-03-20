@@ -1,10 +1,8 @@
 $(document).ready(function() {
 
 
-    $.get("classlist", function(data) {
-        $(".result").html(data);
-        alert("Load was performed.");
-    });
+    $.get("classlist", function(data) {});
+
     // Join class cookies
     function readCookie(name) {
         let nameEQ = name + "=";
@@ -62,7 +60,7 @@ $(document).ready(function() {
             if (data === 'done') {
                 alert("class failed to be created");
             } else {
-                window.location.replace('href', '/phost?session=' + code);
+                window.location.replace('/phost?session=' + code);
             }
         });
     });
