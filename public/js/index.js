@@ -1,5 +1,10 @@
 $(document).ready(function() {
 
+
+    $.get("classlist", function(data) {
+        $(".result").html(data);
+        alert("Load was performed.");
+    });
     // Join class cookies
     function readCookie(name) {
         let nameEQ = name + "=";

@@ -31,7 +31,9 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(express.static(__dirname + '/public'))
 
-app.get('/', function(req, res) {
+
+
+app.get('/classlist', function(req, res) {
     var a_schools = db.get('classes').map('school').value();
     var a_courses = db.get('classes').map('course').value();
     var a_codes = db.get('classes').map('code').value();
