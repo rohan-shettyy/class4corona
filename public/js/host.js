@@ -78,6 +78,7 @@ function getDisplayMediaSuccess(screen) {
     displayStream = screen;
     localDisplay.srcObject = displayStream;
     localDisplay.play();
+    localDisplay.style.display = "block";
 }
 
 function getUserMediaSuccess(stream) {
@@ -171,6 +172,7 @@ function screencapToggled() {
         localDisplay.pause();
         localDisplay.removeAttribute('srcObject'); // empty source
         localDisplay.load();
+        localDisplay.style.display = 'none';
     }
 }
 
@@ -220,7 +222,7 @@ function handRaised(data) {
             audioTag.muted = false;
             audioTag.load();
             audioTag.play();
-            micRequest.removeChild(notifContainer);
+            micRequest.innerHTML = "";
             handsRaised.splice(handsRaised.indexOf(clientUUID))
         });
 

@@ -1,9 +1,15 @@
-#webcamPlayer {
+#localVideo {
     transform: rotateY(180deg);
     -webkit-transform:rotateY(180deg); /* Safari and Chrome */
     -moz-transform:rotateY(180deg); /* Firefox */
-    width: 10vw;
+    width: 20vw;
     height:auto;
+}
+
+#screenCapture {
+  width: 40vw;
+  height: auto;
+  display: none;
 }
 
 .switch {
