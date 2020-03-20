@@ -53,6 +53,7 @@ $(document).ready(function() {
             description: desc,
             code: code
         }, function(data) {
+            console.log(data)
             if (data === 'done') {
                 alert("class failed to be created");
             } else {

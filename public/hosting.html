@@ -12,15 +12,21 @@
 </head>
 
 <body>
-    <video id="screenCapture" autoplay muted style="width:40%;" oncontextmenu="return false;">Click here to activate screen capture</video>
-    <video id="localVideo" autoplay muted style="width:40%;" oncontextmenu="return false;"></video>
-    <audio id="studentAudio" autoplay style='visibility:hidden' oncontextmenu="return false"></audio>
-    <label class="switch">
-        <input type="checkbox" id="screenshareToggle">
-        <span class="slider round"></span>
-    </label>
+    <div class="container w-50 d-flex flex-column">
+        <div class="container w-100">
+            <video id="screenCapture" autoplay muted style="width:40%;" oncontextmenu="return false;">Click here to activate screen capture</video>
+            <video id="localVideo" autoplay muted style="width:40%;" oncontextmenu="return false;"></video>
+            <audio id="studentAudio" autoplay style='visibility:hidden' oncontextmenu="return false"></audio>
+        </div> 
+        <div class="container w-100 d-flex flex-column">
+            <label class="switch">
+                <input type="checkbox" id="screenshareToggle">
+                <span class="slider round"></span>
+            </label>
 
-    <button class="btn btn-outline-primary btn-lg btn-block w-auto" id="hostBtn" onclick="stopstream()">Pause Hosting</button>
+            <button class="btn btn-outline-primary btn-lg btn-block w-auto" id="hostBtn" onclick="stopstream()">Pause Hosting</button>
+        </div>
+    </div>
 
     <div id="micRequest"></div>
     <div id="activeMic"></div>

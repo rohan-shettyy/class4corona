@@ -58,7 +58,7 @@ app.post('/createclass', function(req, res) {
     res.end("End")
 });
 
-app.get('/joinclass', function(req, res) {
+app.get('/', function(req, res) {
     var a_schools = db.get('classes').map('school').value()
     var a_courses = db.get('classes').map('course').value()
     var a_codes = db.get('classes').map('code').value()
@@ -69,7 +69,7 @@ app.get('/joinclass', function(req, res) {
     res.cookie("courses", a_courses.join())
     res.cookie("codes", a_codes.join())
 
-    res.sendFile(__dirname + '/public/joinClass.html');
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 app.post('/joinclass', function(req, res) {
