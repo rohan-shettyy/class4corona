@@ -108,7 +108,7 @@ app.post('/joinclass', function(req, res) {
         code: code
     }).write()
 
-    res.end("yes");
+    res.end('te')
 });
 
 app.get('/class', function(req, res) {
