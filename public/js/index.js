@@ -42,7 +42,7 @@ $(document).ready(function() {
             if (data === 'done') {
                 alert("class created");
             } else {
-                window.location.replace('/class?session=' + code);
+                window.location.replace('/class?session=' + code + '&name=' + name);
             }
         });
     });

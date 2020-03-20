@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     uuid = createUUID();
 
     localVideo = document.getElementById('localVideo');
+    localVideo.style.display = 'none';
     localDisplay = document.getElementById('screenCapture');
     audioTag = document.getElementById('studentAudio');
     audioTag.srcObject = audioStream;
@@ -95,6 +96,7 @@ function getUserMediaSuccess(stream) {
             localVideo.muted = false;
         });
     }
+    localVideo.style.display = "block";
 }
 
 function start(uid) {
