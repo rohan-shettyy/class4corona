@@ -16,7 +16,7 @@ $(document).ready(function() {
             if (data === 'done') {
                 alert("class failed to be created");
             } else {
-                $(location).attr('href', 'host?session=' + code)
+                $(location).attr('href', 'phost?session=' + code)
             }
         });
     });

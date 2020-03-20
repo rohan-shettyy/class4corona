@@ -90,14 +90,14 @@ function getUserMediaSuccess(stream) {
     var promise = localVideo.play();
     if (promise !== undefined) {
         promise.then(_ => {
-          // Autoplay started!
+            // Autoplay started!
         }).catch(error => {
-          // Show something in the UI that the video is muted
-          localVideo.muted = true;
-          localVideo.play();
-          localVideo.muted = false;
+            // Show something in the UI that the video is muted
+            localVideo.muted = true;
+            localVideo.play();
+            localVideo.muted = false;
         });
-      }
+    }
 }
 
 function start(uid) {
@@ -182,4 +182,8 @@ function createUUID() {
     }
 
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+function stopstream() {
+    window.location.replace('phost?session=' + code);
 }

@@ -33,12 +33,13 @@ function pageReady() {
     remoteDisplay.srcObject = displayStream;
     remoteDisplay.play();
 
-    serverConnection = io();
-    serverConnection.connect();
+    serverConnection = io().connect();
     serverConnection.emit('create', code)
 
+    serverConnection.emit('isclient', name)
+
     serverConnection.on('message', gotMessageFromServer);
-    serverConnection.on('startHost', function(e){start(true)});
+    serverConnection.on('startHost', function(e) { start(true) });
     serverConnection.on('stopHost', endConnection)
 
     var constraints = {

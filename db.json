@@ -1,19 +1,5 @@
 {
-  "classes": [
-    {
-      "teacher": "Johnny",
-      "school": "Bruh School",
-      "course": "",
-      "description": "",
-      "code": "427576"
-    },
-    {
-      "teacher": "dfsdfdsfJohnny",
-      "school": "Bruh Schooldsfsdf",
-      "course": "sdfdsfsdf",
-      "description": "jjfgdefg",
-      "code": "345482"
-    }
-  ],
+  "classes": [],
+  "students": [],
   "count": 0
 }
