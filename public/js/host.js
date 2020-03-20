@@ -7,12 +7,15 @@ var remoteVideo;
 var screenToggle;
 var peerConnections = {};
 var uuid;
-var hosting = false;
+var audioStream = new MediaStream();
+var audioTag;
+var micRequest, activeMic;
 var webcam;
 var serverConnection;
 var potentialCandidates = [];
 const urlParams = new URLSearchParams(window.location.search);
 const code = urlParams.get('session');
+var handsRaised = [];
 
 var peerConnectionConfig = {
     'iceServers': [
@@ -27,6 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     localVideo = document.getElementById('localVideo');
     localDisplay = document.getElementById('screenCapture');
+    audioTag = document.getElementById('studentAudio');
+    audioTag.srcObject = audioStream;
+
+    micRequest = document.getElementById('micRequest');
+    activeMic = document.getElementById('activeMic');
 
     screenToggle = document.getElementById('screenshareToggle');
     screenToggle.addEventListener('change', screencapToggled);
@@ -38,24 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log('Opened socket.io connection')
 
     serverConnection.on('message', gotMessageFromServer);
+    serverConnection.on('raise hand', handRaised)
 
     var webcamConstraints = {
         video: true,
         audio: true,
     };
-
-    var hostBtn = document.getElementById('hostBtn');
-    hostBtn.addEventListener('click', function(e) {
-        if (hostBtn.innerText == "Start Hosting") {
-            hosting = true;
-            hostBtn.innerText = "Stop Hosting";
-            serverConnection.emit('startHost', code);
-        } else {
-            hosting = false;
-            hostBtn.innerText = "Start Hosting";
-            serverConnection.emit('stopHost', code);
-        }
-    });
 
     function detectWebcam(callback) {
         let md = navigator.mediaDevices;
@@ -113,12 +109,14 @@ function start(uid) {
             peerConnections[uid].addTrack(track, displayStream);
         }
     }
+
+    peerConnections[uid].ontrack = function(track) {
+        gotRemoteStream(track, uid)
+    };
 }
 
 function gotMessageFromServer(message) {
     var signal = JSON.parse(message);
-
-    if (!hosting) return;
 
     if (!peerConnections[signal.uuid]) start(signal.uuid);
 
@@ -186,4 +184,76 @@ function createUUID() {
 
 function stopstream() {
     window.location.replace('phost?session=' + code);
+}
+
+function gotRemoteStream(e, uid) {
+
+    if (e.track && e.track.kind == 'audio') {
+        peerConnections[uid].audioSrc = e.track;
+    }
+}
+
+function handRaised(data) {
+    var clientRoom = data.room;
+    var clientUUID = data.uuid;
+    var clientName = data.name;
+    if (!handsRaised.includes(clientUUID)) {
+        handsRaised.push(clientUUID);
+        var notifContainer = document.createElement('div');
+        notifContainer.classList.add('handRaise');
+        var notifText = document.createElement('p')
+        notifText.appendChild(document.createTextNode(clientName + ' is raising their hand.'));
+        notifText.style.fontFamily = 'Sen !important';
+        notifText.classList.add('text-dark')
+        var notifBtn = document.createElement('button');
+        notifBtn.innerText = 'Grant microphone access to ' + clientName;
+        notifBtn.classList.add('btn', 'btn-outline-primary', 'btn-lg', 'btn-block', 'w-auto');
+
+        notifBtn.addEventListener('click', function(e) {
+            audioStream.getTracks().forEach((track) => {
+                track.enabled = false;
+                audioStream.removeTrack(track)
+            });
+            addToActive(clientUUID, clientName);
+            audioStream.addTrack(peerConnections[clientUUID].audioSrc);
+            console.log(audioStream.getAudioTracks());
+            audioTag.muted = false;
+            audioTag.load();
+            audioTag.play();
+            micRequest.removeChild(notifContainer);
+            handsRaised.splice(handsRaised.indexOf(clientUUID))
+        });
+
+        notifContainer.appendChild(notifText);
+        notifContainer.appendChild(notifBtn);
+        micRequest.appendChild(notifContainer);
+    }
+}
+
+function addToActive(clientUUID, clientName) {
+    activeMic.innerHTML = '';
+    var activeDiv = document.createElement('div');
+    activeDiv.classList.add('currentlyActive');
+    var activeText = document.createElement('p');
+    activeText.appendChild(document.createTextNode(clientName + "'s microphone is currently active."));
+    activeText.style.fontFamily = 'Sen !important';
+    activeText.classList.add('text-dark')
+    var activeBtn = document.createElement('button');
+    activeBtn.innerText = 'Revoke microphone access from ' + clientName;
+    activeBtn.classList.add('btn', 'btn-outline-primary', 'btn-lg', 'btn-block', 'w-auto');
+
+    activeBtn.onclick = function() {
+        endConnection();
+    }
+    activeDiv.appendChild(activeText);
+    activeDiv.appendChild(activeBtn);
+    activeMic.appendChild(activeDiv);
+}
+
+function endConnection() {
+    audioStream.getTracks().forEach((track) => {
+        track.enabled = false;
+        audioStream.removeTrack(track)
+    })
+    activeMic.innerHTML = '';
 }
