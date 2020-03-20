@@ -2,18 +2,20 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Sen:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/createclass.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-    <div class="TitleDiv container w-50">
-        <h2 class="HomeHeaderSmall">Create a Class</h2>
+    <div class="TitleDiv container mt-4 w-50">
+        <h2 class="display-4">Create a Class</h2>
     </div>
-    <div class="InputDiv container">
+    <div class="InputDiv container d-flex flex-column h-50">
         <form action="">
             <div class="form-group">
                 <label for="name">Name</label>
@@ -31,7 +33,7 @@
                 <label for="Description">Description of Lesson:</label>
                 <textarea class="form-control" id="description" rows="3"></textarea>
             </div>
-            <input type="submit" id="submit" value="Create Class">
+            <input type="submit" id="submit" value="Create Class" class="btn btn-outline-primary btn-lg btn-block w-auto">
         </form>
     </div>
 </body>
