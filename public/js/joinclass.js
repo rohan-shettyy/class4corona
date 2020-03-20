@@ -33,7 +33,7 @@ $(document).ready(function() {
             if (data === 'done') {
                 alert("class created");
             } else {
-                $(location).attr('href', 'class?session=' + code)
+                $(location).attr('href', 'class?session=' + code.toString() + '&username=' + name)
             }
         });
     });

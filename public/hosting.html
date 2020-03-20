@@ -3,6 +3,8 @@
 
 <head>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Sen:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/host.js"></script>
     <link rel="stylesheet" href="css/hosting.css" />
@@ -12,12 +14,14 @@
 <body>
     <video id="screenCapture" autoplay muted style="width:40%;" oncontextmenu="return false;">Click here to activate screen capture</video>
     <video id="localVideo" autoplay muted style="width:40%;" oncontextmenu="return false;"></video>
-
+    <audio id="studentAudio" autoplay style='visibility:hidden' oncontextmenu="return false"></audio>
     <label class="switch">
         <input type="checkbox" id="screenshareToggle">
         <span class="slider round"></span>
     </label>
     <button class="btn btn-outline-primary btn-lg btn-block w-auto" id="hostBtn">Start Hosting</button>
+    <div id="micRequest"></div>
+    <div id="activeMic"></div>
 </body>
 
 </html>

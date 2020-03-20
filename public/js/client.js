@@ -12,6 +12,7 @@ var potentialCandidates = [];
 let inboundStream = null;
 const urlParams = new URLSearchParams(window.location.search);
 const code = urlParams.get('session');
+const name = urlParams.get('username');
 
 
 var peerConnectionConfig = {
@@ -38,8 +39,6 @@ function pageReady() {
     serverConnection.emit('create', code)
 
     serverConnection.on('message', gotMessageFromServer);
-    serverConnection.on('startHost', function(e){start(true)});
-    serverConnection.on('stopHost', endConnection)
 
     var constraints = {
         video: false,
@@ -56,11 +55,11 @@ function pageReady() {
 
 function getUserMediaSuccess(stream) {
     localStream = stream;
+    console.log(localStream)
 
 }
 
 function start(isCaller) {
-    console.log("start");
     peerConnection = new RTCPeerConnection(peerConnectionConfig);
     peerConnection.onicecandidate = gotIceCandidate;
     peerConnection.ontrack = gotRemoteStream;
@@ -122,20 +121,10 @@ function gotRemoteStream(e) {
             inboundStream.addTrack(e.track);
         }
     } else {
+        console.log(e)
         document.getElementById('audioOnly').srcObject = e.streams[0];
         document.getElementById('audioOnly').play();
     }
-}
-
-function endConnection(e) {
-    displayStream.getTracks().forEach((track) => { track.stop() });
-    remoteDisplay.pause();
-    remoteDisplay.removeAttribute('srcObject'); // empty source
-    remoteDisplay.load();
-    remoteStream.getTracks().forEach((track) => { track.stop() });
-    remoteVideo.pause();
-    remoteVideo.removeAttribute('srcObject'); // empty source
-    remoteVideo.load();
 }
 
 function errorHandler(error) {
@@ -148,4 +137,8 @@ function createUUID() {
     }
 
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+function raiseHand() {
+    serverConnection.emit("raise hand", {"room": code, "uuid": uuid, 'name': name});
 }

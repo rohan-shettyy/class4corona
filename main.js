@@ -15,8 +15,7 @@ const FileSync = require('lowdb/adapters/FileSync')
 
 const adapter = new FileSync('db.json')
 const db = low(adapter)
-
-db.defaults({ classes: [], count: 0 }).write()
+db.defaults({ classes: [], students: [], count: 0 }).write()
 
 app.use(cookieParser());
 app.use(cors());
@@ -72,6 +71,11 @@ app.post('/joinclass', function(req, res) {
     var user_name = req.body.name;
     var code = req.body.code;
 
+    db.get('students').push({
+        name: user_name,
+        code: code
+    }).write()
+
     res.end("yes");
 });
 
@@ -90,12 +94,7 @@ io.on('connection', function(socket) {
         socket.broadcast.to(data.room).emit('message', message);
     });
 
-    socket.on('startHost', function(room) {
-        console.log('start')
-        socket.broadcast.to(room).emit('startHost', 'x');
-    });
-
-    socket.on('stopHost', function(room) {
-        socket.broadcast.to(room).emit('stopHost', 'x');
+    socket.on('raise hand', function(data) {
+        socket.broadcast.to(data.room).emit('raise hand', data)
     });
 });
