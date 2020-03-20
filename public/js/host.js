@@ -34,6 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
     audioTag = document.getElementById('studentAudio');
     audioTag.srcObject = audioStream;
 
+    Notification.requestPermission();
+
     micRequest = document.getElementById('micRequest');
     activeMic = document.getElementById('activeMic');
 
@@ -212,6 +214,8 @@ function handRaised(data) {
         var notifBtn = document.createElement('button');
         notifBtn.innerText = 'Grant microphone access to ' + clientName;
         notifBtn.classList.add('btn', 'btn-outline-primary', 'btn-lg', 'btn-block', 'w-auto');
+
+        var notif = new Notification(clientName + ' is raising their hand.');
 
         notifBtn.addEventListener('click', function(e) {
             audioStream.getTracks().forEach((track) => {
