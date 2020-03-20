@@ -69,5 +69,5 @@
   }
 
   video {
-      background: linear-gradient(#111, #000);
+      background: linear-gradient(#111, #000) !important;
   }
