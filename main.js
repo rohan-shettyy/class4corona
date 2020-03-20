@@ -13,6 +13,8 @@ var cookieParser = require('cookie-parser');
 var low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 
+var favicon = require('serve-favicon')
+
 const adapter = new FileSync('db.json')
 const db = low(adapter)
 db.defaults({ classes: [], students: [], count: 0 }).write()
@@ -30,7 +32,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }))
 
 app.use(express.static(__dirname + '/public'))
-
+app.use(favicon(path.join(__dirname + '/public/favicon/favicon.ico')))
 
 
 app.get('/classlist', function(req, res) {
@@ -105,13 +107,13 @@ io.on('connection', function(socket) {
         socket.join(room);
         console.log("Joined " + room)
     });
+
     socket.on('message', function(message) {
         data = JSON.parse(message)
         socket.broadcast.to(data.room).emit('message', message);
     });
 
-    socket.on('disconect', function(name) {
-
+    socket.on('disconnect', function() {
         db.get('students').remove({ name: name }).write()
     });
 
