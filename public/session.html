@@ -34,6 +34,13 @@
 
     <input type="button" id="start" onclick="start(true)" value="Start Video"></input>
     <input type="button" id="raiseHand" onclick="raiseHand()" value="Raise Hand"></input>
+
+    <div id="mutedDiv" class="container w-25">
+        <p class="text-light">Your microphone is currently muted. Raise your hand to ask your teacher a question.</p>
+    </div>
+    <div id="unmutedDiv" class="container w-25">
+        <p class='text-light'>Your microphone was unmuted by your teacher. Ask your question now!</p>
+    </div>
     <script type="text/javascript">
         pageReady();
     </script>

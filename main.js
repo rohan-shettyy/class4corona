@@ -118,4 +118,12 @@ io.on('connection', function(socket) {
     socket.on('raise hand', function(data) {
         socket.broadcast.to(data.room).emit('raise hand', data)
     });
+
+    socket.on('unmute', function(data) {
+        socket.broadcast.to(data.room).emit('unmute', data)
+    });
+
+    socket.on('mute', function(data) {
+        socket.broadcast.to(data.room).emit('mute', data)
+    });
 });

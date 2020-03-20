@@ -41,6 +41,19 @@ function pageReady() {
 
     serverConnection.on('message', gotMessageFromServer);
 
+    serverConnection.on('unmute', function(data) {
+        if (data.uuid == uuid) {
+            document.getElementById('mutedDiv').style.display = 'none';
+            document.getElementById('unmutedDiv').style.display = 'block';
+        }
+    });
+    serverConnection.on('mute', function(data) {
+        if (data.uuid == uuid) {
+            document.getElementById('mutedDiv').style.display = 'block';
+            document.getElementById('unmutedDiv').style.display = 'none';
+        }
+    });
+
     var constraints = {
         video: false,
         audio: true,
