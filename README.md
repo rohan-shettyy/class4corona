@@ -1,4 +1,5 @@
 # Class4Corona
+![Node.js CI](https://github.com/Cyndakwil/class4corona/workflows/Node.js%20CI/badge.svg)
 
 An e-learning environment for schools that have closed during the COVID-19 pandemic developed by **Rohan Shetty** and **Wilson Wang**
 

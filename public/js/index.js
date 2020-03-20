@@ -36,7 +36,6 @@ $(document).ready(function() {
     $("#joinClassSubmit").click(function() {
         let name = $("#jname").val();
         let code = $("#class").val();
-
         $.post("/joinclass", {
             name: name,
             code: code
@@ -44,7 +43,7 @@ $(document).ready(function() {
             if (data === 'done') {
                 alert("class created");
             } else {
-                window.location.replace('/class?session=' + code + '&username=' + name);
+                $(location).attr('href', '/class?session=' + code + '&username=' + name);
             }
         });
     });
@@ -67,7 +66,7 @@ $(document).ready(function() {
             if (data === 'done') {
                 alert("class failed to be created");
             } else {
-                window.location.replace('/phost?session=' + code);
+                $(location).attr('href', '/phost?session=' + code);
             }
         });
     });
