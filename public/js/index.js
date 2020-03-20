@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+
+    $.get("classlist", function(data) {});
+
     // Join class cookies
     function readCookie(name) {
         let nameEQ = name + "=";
