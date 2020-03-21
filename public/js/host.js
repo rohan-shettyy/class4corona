@@ -203,19 +203,23 @@ function gotRemoteStream(e, uid) {
     }
 }
 
+var notifContainers = []
+var notifTexts = []
+var notifBtns = [];
+
 function handRaised(data) {
     var clientRoom = data.room;
     var clientUUID = data.uuid;
     var clientName = data.name;
     if (!handsRaised.includes(clientUUID)) {
         handsRaised.push(clientUUID);
-        var notifContainer = document.createElement('div');
-        notifContainer.classList.add('handRaise');
-        var notifText = document.createElement('p')
+        notifContainers.push(document.createElement('div'));
+        notifContainers[notifContainers.length-1].classList.add('handRaise');
+        notifTexts = document.createElement('p')
         notifText.appendChild(document.createTextNode(clientName + ' is raising their hand.'));
         notifText.style.fontFamily = 'Sen !important';
         notifText.classList.add('text-dark')
-        var notifBtn = document.createElement('button');
+        notifBtns.push(document.createElement('button'));
         notifBtn.innerText = 'Grant microphone access to ' + clientName;
         notifBtn.classList.add('btn', 'btn-outline-primary', 'btn-lg', 'btn-block', 'w-auto');
 
@@ -233,13 +237,12 @@ function handRaised(data) {
             audioTag.load();
             audioTag.play();
             micRequest.innerHTML = "";
-            handsRaised.splice(handsRaised.indexOf(clientUUID))
             serverConnection.emit('unmute', {'uuid': clientUUID, 'room': code})
         });
 
-        notifContainer.appendChild(notifText);
-        notifContainer.appendChild(notifBtn);
-        micRequest.appendChild(notifContainer);
+        notifContainers[notifContainers.length-1].appendChild(notifText);
+        notifContainers[notifContainers.length-1].appendChild(notifBtn);
+        micRequest.appendChild(notifContainers[notifContainers.length-1]);
     }
 }
 
@@ -257,6 +260,7 @@ function addToActive(clientUUID, clientName) {
 
     activeBtn.onclick = function() {
         endConnection();
+        handsRaised.splice(handsRaised.indexOf(clientUUID))
         serverConnection.emit('mute', {'uuid': clientUUID, 'room': code})
     }
     activeDiv.appendChild(activeText);
