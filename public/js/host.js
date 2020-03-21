@@ -88,20 +88,21 @@ function getDisplayMediaSuccess(screen) {
 }
 
 function getUserMediaSuccess(stream) {
-    localStream = stream;
-    localVideo.srcObject = stream;
-    var promise = localVideo.play();
-    if (promise !== undefined) {
-        promise.then(_ => {
-            // Autoplay started!
-        }).catch(error => {
-            // Show something in the UI that the video is muted
-            localVideo.muted = true;
-            localVideo.play();
-            localVideo.muted = false;
-        });
-    }
-    localVideo.style.display = "block";
+    console.log(stream.getTracks())
+        localStream = stream;
+        localVideo.srcObject = stream;
+        var promise = localVideo.play();
+        if (promise !== undefined) {
+            promise.then(_ => {
+                // Autoplay started!
+            }).catch(error => {
+                // Show something in the UI that the video is muted
+                localVideo.muted = true;
+                localVideo.play();
+                localVideo.muted = false;
+            });
+        }
+        localVideo.style.display = "block";
 }
 
 function start(uid) {
