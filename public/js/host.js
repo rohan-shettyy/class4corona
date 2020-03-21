@@ -233,7 +233,7 @@ function handRaised(data) {
             audioTag.play();
             micRequest.innerHTML = "";
             handsRaised.splice(handsRaised.indexOf(clientUUID))
-            serverConnection.emit('unmute', {'uuid': clientUUID, 'room': code})
+            serverConnection.emit('unmute', { 'uuid': clientUUID, 'room': code })
         });
 
         notifContainer.appendChild(notifText);
@@ -256,7 +256,7 @@ function addToActive(clientUUID, clientName) {
 
     activeBtn.onclick = function() {
         endConnection();
-        serverConnection.emit('mute', {'uuid': clientUUID, 'room': code})
+        serverConnection.emit('mute', { 'uuid': clientUUID, 'room': code })
     }
     activeDiv.appendChild(activeText);
     activeDiv.appendChild(activeBtn);
