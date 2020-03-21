@@ -260,7 +260,7 @@ function addToActive(clientUUID, clientName) {
 
     activeBtn.onclick = function() {
         endConnection();
-        handsRaised.splice(handsRaised.indexOf(clientUUID))
+        handsRaised.splice(handsRaised.indexOf(clientUUID), 1)
         serverConnection.emit('mute', {'uuid': clientUUID, 'room': code})
     }
     activeDiv.appendChild(activeText);
