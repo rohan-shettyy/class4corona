@@ -215,17 +215,17 @@ function handRaised(data) {
         handsRaised.push(clientUUID);
         notifContainers.push(document.createElement('div'));
         notifContainers[notifContainers.length-1].classList.add('handRaise');
-        notifTexts = document.createElement('p')
-        notifText.appendChild(document.createTextNode(clientName + ' is raising their hand.'));
-        notifText.style.fontFamily = 'Sen !important';
-        notifText.classList.add('text-dark')
+        notifTexts.push(document.createElement('p'));
+        notifTexts[notifTexts.length-1].appendChild(document.createTextNode(clientName + ' is raising their hand.'));
+        notifTexts[notifTexts.length-1].style.fontFamily = 'Sen !important';
+        notifTexts[notifTexts.length-1].classList.add('text-dark')
         notifBtns.push(document.createElement('button'));
-        notifBtn.innerText = 'Grant microphone access to ' + clientName;
-        notifBtn.classList.add('btn', 'btn-outline-primary', 'btn-lg', 'btn-block', 'w-auto');
+        notifBtns[notifBtns.length-1].innerText = 'Grant microphone access to ' + clientName;
+        notifBtns[notifBtns.length-1].classList.add('btn', 'btn-outline-primary', 'btn-lg', 'btn-block', 'w-auto');
 
         var notif = new Notification(clientName + ' is raising their hand.');
 
-        notifBtn.addEventListener('click', function(e) {
+        notifBtns[notifBtns.length-1].addEventListener('click', function(e) {
             audioStream.getTracks().forEach((track) => {
                 track.enabled = false;
                 audioStream.removeTrack(track)
@@ -240,8 +240,8 @@ function handRaised(data) {
             serverConnection.emit('unmute', {'uuid': clientUUID, 'room': code})
         });
 
-        notifContainers[notifContainers.length-1].appendChild(notifText);
-        notifContainers[notifContainers.length-1].appendChild(notifBtn);
+        notifContainers[notifContainers.length-1].appendChild(notifTexts[notifTexts.length-1]);
+        notifContainers[notifContainers.length-1].appendChild(notifBtns.length-1);
         micRequest.appendChild(notifContainers[notifContainers.length-1]);
     }
 }
