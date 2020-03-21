@@ -241,7 +241,7 @@ function handRaised(data) {
         });
 
         notifContainers[notifContainers.length-1].appendChild(notifTexts[notifTexts.length-1]);
-        notifContainers[notifContainers.length-1].appendChild(notifBtns.length-1);
+        notifContainers[notifContainers.length-1].appendChild(notifBtns[notifBtns.length-1]);
         micRequest.appendChild(notifContainers[notifContainers.length-1]);
     }
 }
