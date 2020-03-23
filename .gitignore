@@ -1,2 +1,4 @@
 node_modules/*
 db.json
+private.key.pem
+domain.cert.pem

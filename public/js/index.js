@@ -26,29 +26,15 @@ function getcookies() {
         let o = new Option(schools[i].replace(/%20/g, " ") + " - " + courses[i], codes[i]);
         /// jquerify the DOM object 'o' so we can use the html method
         $(o).html(schools[i].replace(/%20/g, " ") + " - " + courses[i]);
-        $("#class").append(o);
+        $("#sclass").append(o);
     }
 }
 
 
 $(document).ready(function() {
     // Join class request
-    $("#joinForm").submit(function() {
-        let name = $("#jname").val();
-        let code = $("#class").val();
-        $.post("/joinclass", {
-            name: name,
-            code: code
-        }, function(data) {
-            if (data === 'done') {
-                alert("class created");
-            } else {
-                $(location).attr('href', '/class?session=' + code + '&username=' + name);
-            }
-        });
-    });
-
-    // Create class request
+    getcookies()
+        // Create class request
     $("#createForm").submit(function() {
         let name = $("#cname").val();
         let school = $("#school").val();

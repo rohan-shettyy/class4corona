@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
+var httpApp = express();
 var fs = require('fs');
+var http = require('http')
 var server = require('https').createServer({
         key: fs.readFileSync("private.key.pem"),
         cert: fs.readFileSync("domain.cert.pem")
@@ -14,7 +16,7 @@ var low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 var profanity = require('profanity-censor');
 
-var dictionary = ['fuck', 'shit', 'nigga', 'ass', 'pussy', 'bitch', 'fucker'];
+var dictionary = ['fuck', 'shit', 'nigga', 'pussy', 'bitch', 'fucker'];
 profanity.use(dictionary);
 
 var favicon = require('serve-favicon')
@@ -23,12 +25,9 @@ const adapter = new FileSync('db.json')
 const db = low(adapter)
 db.defaults({ classes: [], students: [], count: 0 }).write()
 
-var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
-
-app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
-
-app.get('/insecure', function(req, res) {
-    res.send('Dangerous!');
+httpApp.set('port', 80);
+httpApp.get("*", function(req, res, next) {
+    res.redirect("https://" + req.headers.host + "/" + req.path);
 });
 
 app.use(cookieParser());
@@ -84,20 +83,20 @@ app.post('/createclass', function(req, res) {
         code: code
     }).write()
 
-    res.end("End")
+    res.redirect('/phost?session=' + code)
 });
 
 app.post('/joinclass', function(req, res) {
 
-    var user_name = profanity.filter(req.body.name);
-    var code = profanity.filter(req.body.code);
+    var user_name = profanity.filter(req.body.jname)
+    var code = profanity.filter(req.body.sclass)
 
     db.get('students').push({
         name: user_name,
         code: code
     }).write()
 
-    res.end('te')
+    res.redirect('/class?session=' + code + '&username=' + user_name)
 });
 
 app.get('/class', function(req, res) {
@@ -130,4 +129,8 @@ io.on('connection', function(socket) {
     socket.on('mute', function(data) {
         socket.broadcast.to(data.room).emit('mute', data)
     });
+});
+
+http.createServer(httpApp).listen(httpApp.get('port'), function() {
+    console.log('Express HTTP server listening on port ' + httpApp.get('port'));
 });
