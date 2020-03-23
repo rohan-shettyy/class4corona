@@ -96,6 +96,8 @@ app.post('/joinclass', function(req, res) {
         code: code
     }).write()
 
+    console.log(user_name, code)
+
     res.redirect('/class?session=' + code + '&username=' + user_name)
 });
 
