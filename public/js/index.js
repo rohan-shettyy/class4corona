@@ -35,25 +35,5 @@ $(document).ready(function() {
     // Join class request
     getcookies()
         // Create class request
-    $("#createForm").submit(function() {
-        let name = $("#cname").val();
-        let school = $("#school").val();
-        let s_class = $("#classname").val();
-        let desc = $("#description").val();
-        code = Math.floor(100000 + Math.random() * 900000);
-        $.post("/createclass", {
-            name: name,
-            school: school,
-            s_class: s_class,
-            description: desc,
-            code: code
-        }, function(data) {
-            console.log(data)
-            if (data === 'done') {
-                alert("class failed to be created");
-            } else {
-                $(location).attr('href', '/phost?session=' + code);
-            }
-        });
-    });
+    document.getElementById("ccode").value = Math.floor(100000 + Math.random() * 900000);
 });

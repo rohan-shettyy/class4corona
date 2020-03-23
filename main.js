@@ -67,11 +67,11 @@ app.get('/createclass', function(req, res) {
 
 app.post('/createclass', function(req, res) {
 
-    var user_name = profanity.filter(req.body.name);
+    var user_name = profanity.filter(req.body.cname);
     var school = profanity.filter(req.body.school);
-    var s_class = profanity.filter(req.body.s_class);
+    var s_class = profanity.filter(req.body.classname);
     var description = profanity.filter(req.body.description);
-    var code = req.body.code
+    var code = req.body.ccode
 
     console.log(user_name, school, s_class, description, code)
 
