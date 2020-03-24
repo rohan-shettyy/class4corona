@@ -1,9 +1,15 @@
-#webcamPlayer {
+#localVideo {
     transform: rotateY(180deg);
     -webkit-transform:rotateY(180deg); /* Safari and Chrome */
     -moz-transform:rotateY(180deg); /* Firefox */
-    width: 10vw;
+    width: 20vw;
     height:auto;
+}
+
+#screenCapture {
+  width: 40vw;
+  height: auto;
+  display: none;
 }
 
 .switch {
@@ -69,5 +75,18 @@
   }
 
   video {
-      background: linear-gradient(#111, #000);
+      background: linear-gradient(#111, #000) !important;
+  }
+
+  #mutedDiv, #unmutedDiv {
+    height: 10%;
+    position: absolute;
+    background-color: #4A9E87;
+    top: 15px;
+    right: 15px;
+    box-shadow: 8px 8px 16px #aaa;
+  }
+
+  #unmutedDiv {
+    display: none;
   }

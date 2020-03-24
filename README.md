@@ -1,6 +1,7 @@
 # Class4Corona
+![Node.js CI](https://github.com/Cyndakwil/class4corona/workflows/Node.js%20CI/badge.svg)
 
-An e-learning environment for schools that have closed during the COVID-19 pandemic developed by **Rohan Shetty** and **Wilson Wang**
+An e-learning environment for schools that have closed during the COVID-19 pandemic developed by **Rohan Shetty**, **Wilson Wang**, and **Matthews Ma**
 
 ## Teach
 
@@ -36,3 +37,10 @@ As a teacher, click "start stream" to begin hosting your class. As a student, th
 
 `Personal-Site` : <https://rohanshetty.me>  
 `GitHub` : <https://github.com/Cyndakwil>
+
+#### Front end
+
+**Matthews Ma**
+
+`Personal Site` : <https://matthews.ma>  
+`GitHub` : <https://github.com/Keraisyn>

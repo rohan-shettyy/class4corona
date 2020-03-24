@@ -2,20 +2,63 @@
 <html>
 
 <head>
+    <link rel="favicon/apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="favicon/apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="favicon/apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="favicon/apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="favicon/apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="favicon/apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="favicon/apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="favicon/apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="favicon/apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="favicon/icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="favicon/icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="favicon/icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="favicon/icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="favicon/manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Sen:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/host.js"></script>
-    <link rel="stylesheet" href="css/hosting.css" />
+    <link rel="stylesheet" href="css/hosting.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-    <video id="screenCapture" autoplay muted style="width:40%;" oncontextmenu="return false;">Click here to activate screen capture</video>
-    <video id="localVideo" autoplay muted style="width:40%;" oncontextmenu="return false;"></video>
+<div class="container-fluid row">
+    <div class="container d-flex flex-column col-md-6 col-sm-12">
+        <div class="container w-100">
+            <video id="screenCapture" class="mx-auto" autoplay muted oncontextmenu="return false;">Click here to
+                activate screen capture
+            </video>
+            <video id="localVideo" class="mx-auto" autoplay muted oncontextmenu="return false;"></video>
+            <audio id="studentAudio" autoplay style='visibility:hidden' oncontextmenu="return false"></audio>
+        </div>
+        <div class="container w-100 d-flex flex-column">
+        </div>
+    </div>
+    <div class="container w-50 d-flex flex-column col-md-6 col-sm-12"></div>
+</div>
 
-    <label class="switch">
-        <input type="checkbox" id="screenshareToggle">
-        <span class="slider round"></span>
-    </label>
+<div id="micRequest"></div>
+<div id="activeMic"></div>
+
+<div class="container-fluid w-100 text-center" style="position:absolute; bottom:25px">
+    <div class="mx-auto d-inline">
+        <label class="switch mx-3">
+            <input type="checkbox" id="screenshareToggle">
+            <span class="slider round"></span>
+        </label>
+
+        <button class="btn btn-outline-primary btn-lg btn-block w-auto d-inline mx-3" id="hostBtn" onclick="stopstream()">Pause Hosting</button>
+    </div>
+</div>
+
 </body>
 
 </html>

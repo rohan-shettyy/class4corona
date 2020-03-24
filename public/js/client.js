@@ -10,6 +10,10 @@ var uuid;
 var serverConnection;
 var potentialCandidates = [];
 let inboundStream = null;
+const urlParams = new URLSearchParams(window.location.search);
+const code = urlParams.get('session');
+const name = urlParams.get('username');
+
 
 var peerConnectionConfig = {
     'iceServers': [
@@ -30,11 +34,25 @@ function pageReady() {
     remoteDisplay.srcObject = displayStream;
     remoteDisplay.play();
 
-    serverConnection = io();
-    serverConnection.connect();
-    serverConnection.emit('create', 'room1')
+    serverConnection = io().connect();
+    serverConnection.emit('create', code)
+
+    serverConnection.emit('isclient', name)
 
     serverConnection.on('message', gotMessageFromServer);
+
+    serverConnection.on('unmute', function(data) {
+        if (data.uuid == uuid) {
+            document.getElementById('mutedDiv').style.display = 'none';
+            document.getElementById('unmutedDiv').style.display = 'block';
+        }
+    });
+    serverConnection.on('mute', function(data) {
+        if (data.uuid == uuid) {
+            document.getElementById('mutedDiv').style.display = 'block';
+            document.getElementById('unmutedDiv').style.display = 'none';
+        }
+    });
 
     var constraints = {
         video: false,
@@ -51,6 +69,7 @@ function pageReady() {
 
 function getUserMediaSuccess(stream) {
     localStream = stream;
+    console.log(localStream)
 
 }
 
@@ -88,14 +107,14 @@ function gotMessageFromServer(message) {
 
 function gotIceCandidate(event) {
     if (event.candidate != null) {
-        serverConnection.emit('message', JSON.stringify({ 'ice': event.candidate, 'uuid': uuid, 'sender': 'client' }));
+        serverConnection.emit('message', JSON.stringify({ 'room': code, 'ice': event.candidate, 'uuid': uuid, 'sender': 'client' }));
     }
 }
 
 function createdDescription(description) {
 
     peerConnection.setLocalDescription(description).then(function() {
-        serverConnection.emit('message', JSON.stringify({ 'sdp': peerConnection.localDescription, 'uuid': uuid, 'sender': 'client' }));
+        serverConnection.emit('message', JSON.stringify({ 'room': code, 'sdp': peerConnection.localDescription, 'uuid': uuid, 'sender': 'client' }));
     }).catch(errorHandler);
 }
 
@@ -116,6 +135,7 @@ function gotRemoteStream(e) {
             inboundStream.addTrack(e.track);
         }
     } else {
+        console.log(e)
         document.getElementById('audioOnly').srcObject = e.streams[0];
         document.getElementById('audioOnly').play();
     }
@@ -131,4 +151,8 @@ function createUUID() {
     }
 
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+function raiseHand() {
+    serverConnection.emit("raise hand", { "room": code, "uuid": uuid, 'name': name });
 }

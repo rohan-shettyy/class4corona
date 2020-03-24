@@ -1,74 +1,146 @@
 <!doctype HTML>
-<html>
+<html class="h-100">
+
 <head>
+    <link rel="favicon/apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="favicon/apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="favicon/apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="favicon/apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="favicon/apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="favicon/apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="favicon/apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="favicon/apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="favicon/apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="favicon/icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="favicon/icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="favicon/icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="favicon/icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="favicon/manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Sen:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/home.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="js/index.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
 
-<div class="container-fluid h-100 main">
-    <div class="row my-auto h-100">
-        <!-- Left half -->
-        <div class="col-md-6 title-half text-white title-text">
-            <div class="container h-100">
-                <div class="row h-100 align-items-center">
-                    <div class="col px-5">
-                        <h1 class="display-1">Class<br><strong class="num-text">4</strong><br>Corona</h1>
-                        <h1 class="h1 sub-text">Teach/learn during the global pandemic</h1>
+<body class="h-100">
+
+    <div class="container-fluid main h-100">
+        <div class="my-0 row no-gutters flex-fill h-100">
+            <!-- Left half -->
+            <div class="title-half col-md-6 h-100 flex-grow col-sm-12 text-white title-text row">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col">
+                            <h1 class="display-1 text-center mx-auto">Class<br><strong class="num-text">4</strong><br>Corona</h1>
+                            <h1 class="h1 sub-text">Teach/learn during the global pandemic</h1>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Right half -->
-        <div class="col-md-6 function-half main-text">
-            <div class="container h-100">
-                <div class="row h-100 align-items-center">
-                    <div class="col px-4 mx-4">
-                        <div class="py-5">
-                            <a href="joinClass.html" class="text-decoration-none">
-                                <button class="btn btn-outline-primary btn-lg btn-block">
+            <!-- Right half -->
+            <div class=" function-half flex-grow col-md-6 col-sm-12 main-text h-100 row">
+                <div class="container mt-auto h-auto">
+                    <div class="row h-100 align-items-center">
+                        <div class="col px-4 mx-4">
+                            <div class="py-5">
+                                <button type="button" onclick="getcookies()" class="btn btn-outline-primary btn-lg btn-block w-75 mx-auto" data-toggle="modal" data-target="#joinModal">
                                     <h1 class="h1">Join a class</h1>
                                 </button>
-                            </a>
-                        </div>
-                        <div class="py-5">
-                            <a href="createclass" class="text-decoration-none">
-                                <button class="btn btn-outline-secondary btn-lg btn-block">
+                            </div>
+                            <div class="py-5">
+                                <button type="button" class="btn btn-outline-secondary btn-lg btn-block w-75 mx-auto" data-toggle="modal" data-target="#createModal">
                                     <h1 class="h1">Create a class</h1>
                                 </button>
-                            </a>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="container w-100 d-flex flex-row credit-container">
+                    <h1 class="h6 ml-auto credit-text text-center">Created in 7 days by Rohan Shetty Wilson Wang, and Matthews Ma</h1>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="joinModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="joinModalLabel">Join Class</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/joinclass" id="joinForm" method='post'>
+                        <div class="form-group">
+                            <label for="jname">Name<span style="color: red;">*</span></label>
+                            <input type="name" class="form-control" id="jname" name="jname" placeholder="Johnny Mac" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="class">Class<span style="color: red;">*</span></label>
+                            <select class="form-control" id="sclass" name="sclass" required>
+                                <option disabled>--Available Classes--</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" form="joinForm" class="btn btn-outline-primary" id="joinClassSubmit">Join Class</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="container-fluid w-100 d-flex flex-row">
-    <h1 class="h6 credit-text">Created in 7 days by Rohan Shetty and Wilson Wang</h1>
-</div>
-
-
-<!--<div class="TitleDiv container w-50">-->
-<!--<h2 class="HomeHeaderSmall">Class</h2>-->
-<!--<h1 class="HomeHeaderLarge">4</h1>-->
-<!--<h2 class="HomeHeaderSmall">Corona</h2>-->
-<!--</div>-->
-<!--<div class="BtnDiv container d-flex flex-row justify-content-center">-->
-<!--<a href="createclass">-->
-<!--<button class = "CreateBtn homebtn">Create Class</button>-->
-<!--</a>  -->
-<!--<a href="joinclass">-->
-<!--<button class = "JoinBtn homebtn">Join Class</button>-->
-<!--</a>-->
-<!--</div>-->
-<!--<div class="container-fluid w-100 d-flex flex-row creditContainer">-->
-    <!--<p class="credits">Rohan Shetty, Wilson Wang, Matthews Ma</p>-->
-<!--</div>-->
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel">Create Class</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/createClass" id="createForm" method="post">
+                        <div class="form-group">
+                            <label for="cname">Name<span style="color: red;">*</span></label>
+                            <input type="name" class="form-control" id="cname" name="cname" placeholder="Johnny Mac" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="school">School<span style="color: red;">*</span></label>
+                            <input type="name" class="form-control" id="school" name="school" placeholder="Sir John A Macdonald S.S." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="class">Class<span style="color: red;">*</span></label>
+                            <input type="name" class="form-control" id="s_class" name="s_class" placeholder="MCV4UI : Grade 12 Calculus and Vectors" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="class">Code<span style="color: red;">*</span></label>
+                            <input type="name" class="form-control" id="ccode" name="ccode" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Description of Lesson:</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" form="createForm" class="btn btn-outline-primary" id="createClassSubmit">Create Class</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
