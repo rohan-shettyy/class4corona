@@ -4,10 +4,9 @@ var httpApp = express();
 var fs = require('fs');
 var http = require('http')
 var server = require('https').createServer({
-        key: fs.readFileSync("private.key.pem"),
-        cert: fs.readFileSync("domain.cert.pem")
-    },
-    app).listen(443);
+    key: fs.readFileSync("private.key.pem"),
+    cert: fs.readFileSync("domain.cert.pem")
+}, app).listen(443);
 var io = require('socket.io')(server);
 var path = require('path');
 var cors = require('cors');
@@ -37,6 +36,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(__dirname + '/public'))
 app.use(favicon(path.join(__dirname + '/public/favicon/favicon.ico')))
 
+app.get('*', function(req, res) {
+    res.status(404).sendFile(__dirname + '/public/404.html');
+});
 
 app.get('/classlist', function(req, res) {
     var a_schools = db.get('classes').map('school').value();
