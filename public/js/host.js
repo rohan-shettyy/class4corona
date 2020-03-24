@@ -41,6 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
         audio: true,
     };
 
+    window.constraints = webcamConstraints;
+
     function detectWebcam(callback) {
         let md = navigator.mediaDevices;
         if (!md || !md.enumerateDevices) return callback(false);
@@ -52,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     detectWebcam(function(hasWebcam) {
         if (!hasWebcam) {
             webcamConstraints.video = false;
+            window.constraints.video = false;
         }
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia(webcamConstraints).then(getUserMediaSuccess).catch(errorHandler);
