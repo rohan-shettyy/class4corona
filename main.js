@@ -58,6 +58,9 @@ app.get('/phost', function(req, res) {
     res.sendFile(__dirname + '/public/hostsetup.html');
 });
 
+app.get('/credits', function(req, res) {
+    res.sendFile(__dirname + '/public/credits.html')
+})
 
 app.get('/createclass', function(req, res) {
     res.sendFile(__dirname + '/public/createClass.html');
