@@ -36,10 +36,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(__dirname + '/public'))
 app.use(favicon(path.join(__dirname + '/public/favicon/favicon.ico')))
 
-app.get('*', function(req, res) {
-    res.status(404).sendFile(__dirname + '/public/404.html');
-});
-
 app.get('/classlist', function(req, res) {
     var a_schools = db.get('classes').map('school').value();
     var a_courses = db.get('classes').map('course').value();
@@ -106,6 +102,11 @@ app.post('/joinclass', function(req, res) {
 app.get('/class', function(req, res) {
     res.sendFile(__dirname + '/public/session.html');
 });
+
+app.get('*', function(req, res) {
+    res.status(404).sendFile(__dirname + '/public/404.html');
+});
+
 
 io.on('connection', function(socket) {
     console.log('user connected');
