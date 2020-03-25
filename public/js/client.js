@@ -124,7 +124,7 @@ function gotRemoteStream(e) {
         if (e.streams && e.streams[0]) {
             if (e.transceiver.mid == screenTransceiver.mid) {
                 displayStream.addTrack(e.track);
-            } else {
+            } else if (e.transceiver.mid == camTransceiver.mid){
                 remoteVideo.srcObject = e.streams[0];
             }
         } else {
