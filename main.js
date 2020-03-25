@@ -15,7 +15,7 @@ var low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 var profanity = require('profanity-censor');
 
-var dictionary = ['fuck', 'shit', 'nigga', 'pussy', 'bitch', 'fucker'];
+var dictionary = ['fuck', 'shit', 'nigga', 'pussy', 'bitch', 'cunt', 'twat', 'nigger', 'slut', 'whore'];
 profanity.use(dictionary);
 
 var favicon = require('serve-favicon')
@@ -26,7 +26,7 @@ db.defaults({ classes: [], students: [], count: 0 }).write()
 
 httpApp.set('port', 80);
 httpApp.get("*", function(req, res, next) {
-    res.redirect("https://" + req.headers.host + "/" + req.path);
+    res.redirect("https://" + req.headers.host);
 });
 
 app.use(cookieParser());
