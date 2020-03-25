@@ -4,7 +4,8 @@
     "description": "",
     "main": "main.js",
     "scripts": {
-        "start": "electron ."
+        "start": "electron .",
+        "build": "electron-packager . Class4Corona --platform=linux --arch=x64 --overwrite"
     },
     "repository": {
         "type": "git",
@@ -16,7 +17,9 @@
         "url": "https://github.com/Cyndakwil/class4corona/issues"
     },
     "homepage": "https://github.com/Cyndakwil/class4corona#readme",
-    "dependencies": {
-        "electron": "^8.2.0"
+    "dependencies": {},
+    "devDependencies": {
+        "electron": "^8.2.0",
+        "electron-packager": "^14.2.1"
     }
 }
