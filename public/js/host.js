@@ -56,11 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia(webcamConstraints).then(getUserMediaSuccess).catch(errorHandler);
         } else {
-            if (navigator.getUserMedia) {
-                navigator.getUserMedia(webcamConstraints).then(getUserMediaSuccess).catch(errorHandler);
-            } else {
-                alert('Your browser does not support getUserMedia API');
-            }       
+            alert('Your browser does not support getUserMedia API');
         }
     });
 });
