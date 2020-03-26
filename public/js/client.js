@@ -23,7 +23,15 @@ var peerConnectionConfig = {
     sdpSemantics: 'unified-plan'
 };
 
-function pageReady() {
+$(document).ready(function() {
+    navigator.mediaDevices.getUserMedia({
+        audio: true
+    }).then(function(e) {
+        console.log(e)
+    }).catch(function(err) {
+        alert("Microphone Permissions are needed")
+    })
+
     uuid = createUUID();
 
     remoteVideo = document.getElementById('remoteVideo');
@@ -53,19 +61,7 @@ function pageReady() {
             document.getElementById('unmutedDiv').style.display = 'none';
         }
     });
-
-    var constraints = {
-        video: false,
-        audio: true,
-    };
-
-    if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia(constraints).then(getUserMediaSuccess).catch(errorHandler);
-    } else {
-        alert('Your browser does not support getUserMedia API');
-    }
-
-}
+});
 
 function getUserMediaSuccess(stream) {
     localStream = stream;
@@ -124,7 +120,7 @@ function gotRemoteStream(e) {
         if (e.streams && e.streams[0]) {
             if (e.transceiver.mid == screenTransceiver.mid) {
                 displayStream.addTrack(e.track);
-            } else if (e.transceiver.mid == camTransceiver.mid){
+            } else if (e.transceiver.mid == camTransceiver.mid) {
                 remoteVideo.srcObject = e.streams[0];
             }
         } else {

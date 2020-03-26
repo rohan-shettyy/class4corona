@@ -21,47 +21,44 @@
     <meta name="theme-color" content="#ffffff">
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="js/client.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/hosting.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-<div class="container-fluid my-5 text-center">
-    <audio id="audioOnly" style="visibility: hidden" oncontextmenu="return false;"></audio>
-    <div class="row">
-        <div class="col-md-6 col-12">
-            <video id="remoteDisplay" class="w-100" autoplay oncontextmenu="return false;"></video>
-        </div>
+    <div class="container-fluid my-5 text-center">
+        <audio id="audioOnly" style="visibility: hidden" oncontextmenu="return false;"></audio>
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <video id="remoteDisplay" class="w-100" autoplay oncontextmenu="return false;"></video>
+            </div>
 
-        <div class="col-md-6 col-12">
-            <video id="remoteVideo" class="w-100" autoplay oncontextmenu="return false;"></video>
+            <div class="col-md-6 col-12">
+                <video id="remoteVideo" class="w-100" autoplay oncontextmenu="return false;"></video>
+            </div>
         </div>
     </div>
-</div>
 
 
-<br/>
+    <br/>
 
-<div id="mutedDiv" class="container">
-    <p class="text-light">Your microphone is currently muted. Raise your hand to ask your teacher a question.</p>
-</div>
-<div id="unmutedDiv" class="container">
-    <p class='text-light'>Your microphone was unmuted by your teacher. Ask your question now!</p>
-</div>
-
-<div class="container-fluid w-100 text-center" style="position:absolute; bottom:25px">
-    <div class="mx-auto d-inline">
-        <button type="button" class="btn btn-outline-primary btn-lg btn-block w-auto d-inline mx-3" id="start" onclick="start(true)">Start Video</button>
-        <button type="button" class="btn btn-outline-primary btn-lg btn-block w-auto d-inline mx-3 my-0" id="raiseHand" onclick="raiseHand()">Raise Hand</button>
+    <div id="mutedDiv" class="container">
+        <p class="text-light">Your microphone is currently muted. Raise your hand to ask your teacher a question.</p>
     </div>
-</div>
+    <div id="unmutedDiv" class="container">
+        <p class='text-light'>Your microphone was unmuted by your teacher. Ask your question now!</p>
+    </div>
 
-<script type="text/javascript">
-    pageReady();
-</script>
+    <div class="container-fluid w-100 text-center" style="position:absolute; bottom:25px">
+        <div class="mx-auto d-inline">
+            <button type="button" class="btn btn-outline-primary btn-lg btn-block w-auto d-inline mx-3" id="start" onclick="start(true)">Start Video</button>
+            <button type="button" class="btn btn-outline-primary btn-lg btn-block w-auto d-inline mx-3 my-0" id="raiseHand" onclick="raiseHand()">Raise Hand</button>
+        </div>
+    </div>
+
 </body>
 
 </html>

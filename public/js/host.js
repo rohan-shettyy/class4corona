@@ -25,7 +25,17 @@ var peerConnectionConfig = {
     sdpSemantics: 'unified-plan'
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+
+$(document).ready(function() {
+    navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true
+    }).then(function(e) {
+        console.log(e)
+    }).catch(function(err) {
+        alert("Microphone Permissions are needed")
+    })
+
     uuid = createUUID();
 
     localVideo = document.getElementById('localVideo');
