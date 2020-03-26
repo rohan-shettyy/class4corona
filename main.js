@@ -125,8 +125,12 @@ io.on('connection', function(socket) {
     });
 
     socket.on('message', function(message) {
-        data = JSON.parse(message)
-        socket.broadcast.to(data.room).emit('message', message);
+        try {
+            data = JSON.parse(message)
+            socket.broadcast.to(data.room).emit('message', message);
+        } catch (error) {
+            console.error(error);
+        }
     });
 
     socket.on('disconnect', function() {});

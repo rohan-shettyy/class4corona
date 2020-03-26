@@ -54,6 +54,10 @@ $(document).ready(function() {
         }
     });
 
+    serverConnection.on('screenEnable', function(data) {
+        start(isCaller)
+    });
+
     navigator.mediaDevices.getUserMedia({
         audio: true
     }).then(function(stream) {
