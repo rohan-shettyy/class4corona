@@ -56,8 +56,8 @@ $(document).ready(function() {
 
     navigator.mediaDevices.getUserMedia({
         audio: true
-    }).then(function(e) {
-        console.log(e)
+    }).then(function(stream) {
+        localStream = stream
     }).catch(function(err) {
         alert("Microphone Permissions are needed")
     })
