@@ -24,14 +24,6 @@ var peerConnectionConfig = {
 };
 
 $(document).ready(function() {
-    navigator.mediaDevices.getUserMedia({
-        audio: true
-    }).then(function(e) {
-        console.log(e)
-    }).catch(function(err) {
-        alert("Microphone Permissions are needed")
-    })
-
     uuid = createUUID();
 
     remoteVideo = document.getElementById('remoteVideo');
@@ -61,6 +53,15 @@ $(document).ready(function() {
             document.getElementById('unmutedDiv').style.display = 'none';
         }
     });
+
+    navigator.mediaDevices.getUserMedia({
+        audio: true
+    }).then(function(e) {
+        console.log(e)
+    }).catch(function(err) {
+        alert("Microphone Permissions are needed")
+    })
+
 });
 
 function getUserMediaSuccess(stream) {
