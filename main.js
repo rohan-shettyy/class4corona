@@ -66,6 +66,11 @@ app.get('/createclass', function(req, res) {
     res.sendFile(__dirname + '/public/createClass.html');
 });
 
+app.post('/closeclass', function(req, res) {
+
+    res.redirect(301, '/')
+});
+
 app.post('/createclass', function(req, res) {
 
     var user_name = profanity.filter(req.body.cname);
