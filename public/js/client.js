@@ -24,6 +24,16 @@ var peerConnectionConfig = {
 };
 
 $(document).ready(function() {
+
+
+    navigator.mediaDevices.getUserMedia({
+        audio: true
+    }).then(function(stream) {
+        localStream = stream
+    }).catch(function(err) {
+        alert("Microphone Permissions are needed")
+    });
+
     uuid = createUUID();
 
     remoteVideo = document.getElementById('remoteVideo');
@@ -53,18 +63,6 @@ $(document).ready(function() {
             document.getElementById('unmutedDiv').style.display = 'none';
         }
     });
-
-    serverConnection.on('screenEnable', function(data) {
-        start(isCaller)
-    });
-
-    navigator.mediaDevices.getUserMedia({
-        audio: true
-    }).then(function(stream) {
-        localStream = stream
-    }).catch(function(err) {
-        alert("Microphone Permissions are needed")
-    })
 
 });
 
