@@ -22,7 +22,11 @@ var favicon = require('serve-favicon')
 
 const adapter = new FileSync('db.json')
 const db = low(adapter)
-db.defaults({ classes: [], students: [], count: 0 }).write()
+db.defaults({
+    classes: [],
+    students: [],
+    count: 0
+}).write()
 
 httpApp.set('port', 80);
 httpApp.get("*", function(req, res, next) {
@@ -31,7 +35,9 @@ httpApp.get("*", function(req, res, next) {
 
 app.use(cookieParser());
 app.use(cors());
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({
+    extended: true
+}))
 
 app.use(express.static(__dirname + '/public'))
 app.use(favicon(path.join(__dirname + '/public/favicon/favicon.ico')))

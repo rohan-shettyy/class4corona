@@ -16,9 +16,12 @@ const name = urlParams.get('username');
 
 
 var peerConnectionConfig = {
-    'iceServers': [
-        { 'urls': 'stun:stun.stunprotocol.org:3478' },
-        { 'urls': 'stun:stun.l.google.com:19302' },
+    'iceServers': [{
+            'urls': 'stun:stun.stunprotocol.org:3478'
+        },
+        {
+            'urls': 'stun:stun.l.google.com:19302'
+        },
     ],
     sdpSemantics: 'unified-plan'
 };
@@ -96,14 +99,24 @@ function gotMessageFromServer(message) {
 
 function gotIceCandidate(event) {
     if (event.candidate != null) {
-        serverConnection.emit('message', JSON.stringify({ 'room': code, 'ice': event.candidate, 'uuid': uuid, 'sender': 'client' }));
+        serverConnection.emit('message', JSON.stringify({
+            'room': code,
+            'ice': event.candidate,
+            'uuid': uuid,
+            'sender': 'client'
+        }));
     }
 }
 
 function createdDescription(description) {
 
     peerConnection.setLocalDescription(description).then(function() {
-        serverConnection.emit('message', JSON.stringify({ 'room': code, 'sdp': peerConnection.localDescription, 'uuid': uuid, 'sender': 'client' }));
+        serverConnection.emit('message', JSON.stringify({
+            'room': code,
+            'sdp': peerConnection.localDescription,
+            'uuid': uuid,
+            'sender': 'client'
+        }));
     }).catch(errorHandler);
 }
 
@@ -143,5 +156,9 @@ function createUUID() {
 }
 
 function raiseHand() {
-    serverConnection.emit("raise hand", { "room": code, "uuid": uuid, 'name': name });
+    serverConnection.emit("raise hand", {
+        "room": code,
+        "uuid": uuid,
+        'name': name
+    });
 }

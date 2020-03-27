@@ -18,9 +18,12 @@ const code = urlParams.get('session');
 var handsRaised = [];
 
 var peerConnectionConfig = {
-    'iceServers': [
-        { 'urls': 'stun:stun.stunprotocol.org:3478' },
-        { 'urls': 'stun:stun.l.google.com:19302' },
+    'iceServers': [{
+            'urls': 'stun:stun.stunprotocol.org:3478'
+        },
+        {
+            'urls': 'stun:stun.l.google.com:19302'
+        },
     ],
     sdpSemantics: 'unified-plan'
 };
@@ -150,14 +153,24 @@ function gotMessageFromServer(message) {
 
 function gotIceCandidate(event) {
     if (event.candidate != null) {
-        serverConnection.emit('message', JSON.stringify({ 'room': code, 'ice': event.candidate, 'uuid': uuid, 'sender': 'host' }));
+        serverConnection.emit('message', JSON.stringify({
+            'room': code,
+            'ice': event.candidate,
+            'uuid': uuid,
+            'sender': 'host'
+        }));
     }
 }
 
 function createdDescription(description, uid) {
 
     peerConnections[uid].setLocalDescription(description).then(function() {
-        serverConnection.emit('message', JSON.stringify({ 'room': code, 'sdp': peerConnections[uid].localDescription, 'uuid': uuid, sender: 'host' }));
+        serverConnection.emit('message', JSON.stringify({
+            'room': code,
+            'sdp': peerConnections[uid].localDescription,
+            'uuid': uuid,
+            sender: 'host'
+        }));
     }).catch(errorHandler);
 }
 
@@ -177,7 +190,9 @@ function screencapToggled() {
             alert('Your browser does not support getDisplayMedia API');
         }
     } else {
-        displayStream.getTracks().forEach((track) => { track.stop() });
+        displayStream.getTracks().forEach((track) => {
+            track.stop()
+        });
         localDisplay.pause();
         localDisplay.removeAttribute('srcObject'); // empty source
         localDisplay.load();
@@ -238,7 +253,10 @@ function handRaised(data) {
             audioTag.load();
             audioTag.play();
             micRequest.innerHTML = "";
-            serverConnection.emit('unmute', { 'uuid': clientUUID, 'room': code })
+            serverConnection.emit('unmute', {
+                'uuid': clientUUID,
+                'room': code
+            })
         });
 
         notifContainers[notifContainers.length - 1].appendChild(notifTexts[notifTexts.length - 1]);
@@ -262,7 +280,10 @@ function addToActive(clientUUID, clientName) {
     activeBtn.onclick = function() {
         endConnection();
         handsRaised.splice(handsRaised.indexOf(clientUUID), 1)
-        serverConnection.emit('mute', { 'uuid': clientUUID, 'room': code })
+        serverConnection.emit('mute', {
+            'uuid': clientUUID,
+            'room': code
+        })
     }
     activeDiv.appendChild(activeText);
     activeDiv.appendChild(activeBtn);

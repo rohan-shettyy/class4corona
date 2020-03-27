@@ -1,19 +1,18 @@
-
 .main {
     padding: 0;
 }
 
 .title-text {
-    font-size:45px;
+    font-size: 45px;
     font-family: 'Sen';
     font-weight: 700;
 }
 
-.display-1, .sub-text{
+.display-1,
+.sub-text {
     font-weight: 700;
     text-align: center;
 }
-
 
 .title-half {
     background: linear-gradient(#8ADEC7, #4A9E87);
@@ -50,12 +49,13 @@
 }
 
 .credit-text {
-    position:absolute;
-    right:15px;
-    bottom:15px;
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
     font-family: 'Sen', sans-serif;
 }
 
-#joinForm, #createForm {
+#joinForm,
+#createForm {
     font-family: 'Sen';
 }
