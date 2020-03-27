@@ -24,6 +24,7 @@ function getcookies() {
 
 
     $('#sclass').empty();
+
     for (i = 0; i < schools.length; i++) {
         let o = new Option(schools[i].replace(/%20/g, " ") + " - " + courses[i], codes[i]);
         /// jquerify the DOM object 'o' so we can use the html method
