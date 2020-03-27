@@ -58,6 +58,10 @@ app.get('/phost', function(req, res) {
     res.sendFile(__dirname + '/public/hostsetup.html');
 });
 
+app.get('/pclass', function(req, res) {
+    res.sendFile(__dirname + '/public/clientsetup.html');
+});
+
 app.get('/credits', function(req, res) {
     res.sendFile(__dirname + '/public/credits.html')
 })
@@ -104,7 +108,7 @@ app.post('/joinclass', function(req, res) {
 
     console.log(user_name, code)
 
-    res.redirect('/class?session=' + code + '&username=' + user_name)
+    res.redirect('/pclass?session=' + code + '&username=' + user_name)
 });
 
 app.get('/class', function(req, res) {
