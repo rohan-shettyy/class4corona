@@ -108,7 +108,7 @@ app.post('/joinclass', function(req, res) {
 
     console.log(user_name, code)
 
-    res.redirect('/pclass?session=' + code + '&username=' + user_name)
+    res.redirect('/pclass?session=' + code + '&name=' + user_name)
 });
 
 app.get('/class', function(req, res) {
