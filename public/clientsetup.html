@@ -1,19 +1,33 @@
-<script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('session');
-    const name = urlParams.get('name');
+<html>
 
-    function next() {
-        window.location.replace('host?session=' + code + '&name=' + name);
-    }
+<head>
 
-    navigator.mediaDevices.getUserMedia({
-        audio: true
-    }).then(function(stream) {
-        localStream = stream
-    }).catch(function(err) {
-        alert("Microphone Permissions are needed")
-    });
-</script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('session');
+        const name = urlParams.get('name');
 
-<button onclick="next()">Join Class</button>
+        function next() {
+            window.location.replace('host?session=' + code + '&name=' + name);
+        }
+
+        navigator.mediaDevices.getUserMedia({
+            audio: true
+        }).then(function(stream) {
+            localStream = stream
+        }).catch(function(err) {
+            alert("Microphone Permissions are needed")
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <p>this page is here to ensure Microphone Permissions are Enabled so that the application can work as intended</p>
+    <p>Your Microphone IS NOT recorded and used until the next page.</p>
+    <button onclick="next()">Join Class</button>
+
+</body>
+
+</html>
