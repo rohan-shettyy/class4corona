@@ -106,13 +106,19 @@ app.post('/joinclass', function(req, res) {
 
     var user_name = profanity.filter(req.body.jname)
     var code = profanity.filter(req.body.sclass)
+    var jcode = req.body.jcode
+
+    if (jcode != undefined) {
+        console.log(code)
+        code = jcode
+    }
 
     db.get('students').push({
         name: user_name,
         code: code
     }).write()
 
-    console.log(user_name, code)
+    console.log(user_name, code, jcode)
 
     res.redirect('/pclass?session=' + code + '&name=' + user_name)
 });
