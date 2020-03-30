@@ -57,13 +57,9 @@ $(document).ready(function() {
         }
     });
 
-});
-
-function getUserMediaSuccess(stream) {
     localStream = stream;
     console.log(localStream)
-
-}
+});
 
 function start(isCaller) {
     peerConnection = new RTCPeerConnection(peerConnectionConfig);
