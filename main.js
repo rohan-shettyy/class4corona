@@ -76,6 +76,10 @@ app.get('/createclass', function(req, res) {
     res.sendFile(__dirname + '/public/createClass.html');
 });
 
+app.get('/changelog', function(req, res) {
+    res.sendFile(__dirname + '/public/CHANGELOG.html')
+})
+
 app.post('/closeclass', function(req, res) {
 
     res.redirect(301, '/')
