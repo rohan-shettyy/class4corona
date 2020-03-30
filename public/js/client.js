@@ -12,7 +12,7 @@ var potentialCandidates = [];
 let inboundStream = null;
 const urlParams = new URLSearchParams(window.location.search);
 const code = urlParams.get('session');
-const name = urlParams.get('username');
+const name = urlParams.get('name');
 
 
 var peerConnectionConfig = {
