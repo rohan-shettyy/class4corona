@@ -114,7 +114,7 @@ app.post('/joinclass', function(req, res) {
 
     if (jcode != undefined) {
         console.log(code)
-        code = jcode
+            //code = jcode
     }
 
     db.get('students').push({
