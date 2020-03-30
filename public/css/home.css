@@ -4,7 +4,7 @@
 
 .title-text {
     font-size: 45px;
-    font-family: 'Sen';
+    /*font-family: 'Sen';*/
     font-weight: 700;
 }
 
@@ -15,8 +15,9 @@
 }
 
 .title-half {
-    background: linear-gradient(#8ADEC7, #4A9E87);
-    box-shadow: 0px 0px 32px #888;
+    /*background: linear-gradient(#8ADEC7, #4A9E87);*/
+    /*box-shadow: 0px 0px 32px #888;*/
+    background: #255F85;
     padding: 0;
     margin: auto;
     min-width: 50%;
@@ -29,7 +30,7 @@
 }
 
 .main-text {
-    font-family: 'Roboto', sans-serif;
+    /*font-family: 'Roboto', sans-serif;*/
 }
 
 .num-text {
@@ -37,8 +38,18 @@
     text-shadow: 8px 8px 16px #4A9E87;
 }
 
+.join-btn {
+    color:#255F85;
+    border-color:#255F85;
+}
+
+.create-btn {
+    color:#2B303A;
+    border-color:#2B303A;
+}
+
 .btn {
-    font-family: 'Sen';
+    /*font-family: 'Sen';*/
 }
 
 .credit-container {
@@ -52,10 +63,10 @@
     position: absolute;
     right: 15px;
     bottom: 15px;
-    font-family: 'Sen', sans-serif;
+    /*font-family: 'Sen', sans-serif;*/
 }
 
 #joinForm,
 #createForm {
-    font-family: 'Sen';
+    /*font-family: 'Sen';*/
 }
