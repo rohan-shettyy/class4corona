@@ -10,10 +10,12 @@
 </head>
 
 <body>
-    <h3> Can you see yourself?</h3>
+    <div class="container text-center">
+        <video id="localVideo" class="my-5 mx-auto w-100" autoplay muted oncontextmenu="return false;"></video>
 
-    <h4> If you can then you're ready to go start you class just click the button below!</h4>
-    <video id="localVideo" class="mx-auto" autoplay muted oncontextmenu="return false;"></video>
+        <h1 class="lead py-3" style="font-size:2rem;">If you can see yourself, you are ready to start hosting!</h1>
+    </div>
+
 
     <div class="container-fluid w-100" style="bottom:25px; position:absolute">
         <button class="btn btn-outline-primary btn-lg btn-block w-auto mx-auto" id="hostBtn" onclick="host()">Start Hosting</button>
