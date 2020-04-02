@@ -3,6 +3,7 @@
 <head>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
@@ -26,9 +27,19 @@
 
 <body>
 
-    <p>this page is here to ensure Microphone Permissions are Enabled so that the application can work as intended</p>
-    <p>Your Microphone IS NOT recorded and used until the next page.</p>
-    <button onclick="next()">Join Class</button>
+    <div class="container text-center" style="height:100vh;">
+        <div class="row h-100 align-items-center">
+            <div class="col">
+                <h1 class="h4 mb-3">Make sure to allow microphone permissions!</h1>
+                <h1 class="lead mb-4">Your microphone is not used until you join the class</h1>
+                <button class="btn btn-outline-primary" onclick="next()">Join Class</button>
+            </div>
+        </div>
+    </div>
+
+    <!--<p>this page is here to ensure Microphone Permissions are Enabled so that the application can work as intended</p>-->
+    <!--<p>Your Microphone IS NOT recorded and used until the next page.</p>-->
+    <!--<button onclick="next()">Join Class</button>-->
 
 </body>
 
