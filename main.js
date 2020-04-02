@@ -68,8 +68,8 @@ app.get('/pclass', function(req, res) {
     res.sendFile(__dirname + '/public/clientsetup.html');
 });
 
-app.get('/credits', function(req, res) {
-    res.sendFile(__dirname + '/public/credits.html')
+app.get('/about', function(req, res) {
+    res.sendFile(__dirname + '/public/about.html')
 })
 
 app.get('/createclass', function(req, res) {
