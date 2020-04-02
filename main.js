@@ -131,10 +131,13 @@ app.get('/class', function(req, res) {
     res.sendFile(__dirname + '/public/session.html');
 });
 
+app.get('/delclass', function(req, res) {
+    console.log("removing class")
+})
+
 app.get('*', function(req, res) {
     res.status(404).sendFile(__dirname + '/public/404.html');
 });
-
 
 io.on('connection', function(socket) {
     console.log('user connected');
